@@ -29,9 +29,40 @@
 		F4B800BE2CC00B3A0026C01B /* WikiPlacesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikiPlacesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F419A5EF2CC10EC500EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlaces" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F4B800A32CC00B390026C01B /* WikiPlaces */;
+		};
+		F419A5F42CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Config-Debug.xcconfig",
+				"Config-Release.xcconfig",
+			);
+			target = F4B800B32CC00B3A0026C01B /* WikiPlacesTests */;
+		};
+		F419A5F52CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Config-Debug.xcconfig",
+				"Config-Release.xcconfig",
+			);
+			target = F4B800BD2CC00B3A0026C01B /* WikiPlacesUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F4B800A62CC00B390026C01B /* WikiPlaces */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F419A5EF2CC10EC500EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlaces" target */,
+				F419A5F42CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesTests" target */,
+				F419A5F52CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesUITests" target */,
+			);
 			path = WikiPlaces;
 			sourceTree = "<group>";
 		};
@@ -271,6 +302,8 @@
 /* Begin XCBuildConfiguration section */
 		F4B800C62CC00B3A0026C01B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F4B800A62CC00B390026C01B /* WikiPlaces */;
+			baseConfigurationReferenceRelativePath = "Config-Debug.xcconfig";
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -334,6 +367,8 @@
 		};
 		F4B800C72CC00B3A0026C01B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F4B800A62CC00B390026C01B /* WikiPlaces */;
+			baseConfigurationReferenceRelativePath = "Config-Release.xcconfig";
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -399,6 +434,7 @@
 				DEVELOPMENT_TEAM = 7X4S2WGMMS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WikiPlaces/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +464,7 @@
 				DEVELOPMENT_TEAM = 7X4S2WGMMS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WikiPlaces/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

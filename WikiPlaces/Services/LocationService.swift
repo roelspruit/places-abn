@@ -13,12 +13,19 @@ protocol LocationServiceProtocol {
 
 final class LocationService: LocationServiceProtocol {
 
+    private let appConfigurationRepository: AppConfigurationRepositoryProtocol
+
     enum LocationServiceError: Error {
         case incorrectURLConfiguration
     }
 
+    init(appConfigurationRepository: AppConfigurationRepositoryProtocol) {
+        self.appConfigurationRepository = appConfigurationRepository
+    }
+
     func getLocations() async throws -> [Location] {
-        guard let url = URL(string: "https://raw.githubusercontent.com/abnamrocoesd/assignment-ios/main/locations.json") else {
+
+        guard let url = appConfigurationRepository.locationJSONURL else {
             throw LocationServiceError.incorrectURLConfiguration
         }
 
@@ -28,20 +35,15 @@ final class LocationService: LocationServiceProtocol {
     }
 }
 
-struct PreviewLocationService: LocationServiceProtocol {
-    var locations: [Location] = []
-    var error: LocationService.LocationServiceError? = nil
-    var finishes = true
+final class MockLocationService: LocationServiceProtocol {
+
+    private var getLocations_callBack: () async throws -> [Location]
+
+    init(getLocations_callBack: @escaping () async throws -> [Location]) {
+        self.getLocations_callBack = getLocations_callBack
+    }
 
     func getLocations() async throws -> [Location] {
-        guard finishes else {
-            while(true){}
-        }
-        
-        if let error {
-            throw error
-        }
-
-        return locations
+        try await getLocations_callBack()
     }
 }

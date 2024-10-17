@@ -12,7 +12,11 @@ struct WikiPlacesApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                PlacesListView(viewModel: .init(locationService: LocationService()))
+                PlacesListView(
+                    viewModel: .init(locationService: LocationService(
+                        appConfigurationRepository: AppConfigurationRepository()
+                    ))
+                )
             }
         }
     }

@@ -70,7 +70,9 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: PreviewLocationService(locations: Location.examples)
+                locationService: MockLocationService(getLocations_callBack: {
+                    return Location.examples
+                })
             )
         )
     }
@@ -80,7 +82,10 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: PreviewLocationService(finishes: false)
+                locationService: MockLocationService(getLocations_callBack: {
+                    while(true){}
+                    return []
+                })
             )
         )
     }
@@ -90,7 +95,9 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: PreviewLocationService(error: .incorrectURLConfiguration)
+                locationService: MockLocationService(getLocations_callBack: {
+                    throw LocationService.LocationServiceError.incorrectURLConfiguration
+                })
             )
         )
     }
