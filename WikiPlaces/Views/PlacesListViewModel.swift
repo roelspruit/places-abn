@@ -26,6 +26,14 @@ class PlacesListViewModel {
     var customLocationLatitude: String = ""
     var customLocationLongitude: String = ""
 
+    var customLocationIsInvalid: Bool {
+        locationFromCustomLocationFields == nil
+    }
+
+    var hasEnteredCustomLocationFields: Bool {
+        !customLocationLatitude.isEmpty && !customLocationLongitude.isEmpty
+    }
+
     private let locationService: LocationServiceProtocol
     private let floatingErrorAutoHideInterval: TimeInterval = 5
     private var floatingErrorAutoHideTimer: Timer?
@@ -43,6 +51,11 @@ class PlacesListViewModel {
     init(locationService: LocationServiceProtocol) {
         self.locationService = locationService
     }
+}
+
+// MARK: - View events
+
+extension PlacesListViewModel {
 
     func onTask() async {
         await getLocations()
@@ -53,22 +66,14 @@ class PlacesListViewModel {
     }
 
     func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
-        openlocation(location, openURLAction: openURLAction)
+        openLocation(location, openURLAction: openURLAction)
     }
 
     func onAddCustomLocationTap() {
         showAddCustomLocationSheet = true
     }
 
-    var customLocationIsInvalid: Bool {
-        locationFromCustomLocationFields == nil
-    }
-
-    var hasEnteredCustomLocationFields: Bool {
-        !customLocationLatitude.isEmpty && !customLocationLongitude.isEmpty
-    }
-
-    func onSaveCustomLocationTap(openURLAction: OpenURLAction) {
+    func onSaveCustomLocationTap() {
 
         guard let location = locationFromCustomLocationFields else {
             // Field validation is done before the user has the option of even saving a location. No error handling is needed here
@@ -81,8 +86,6 @@ class PlacesListViewModel {
 
         clearCustomLocationData()
         showAddCustomLocationSheet = false
-
-        openlocation(location, openURLAction: openURLAction)
     }
 
     func onCancelAddingCustomLocationTap() {
@@ -94,10 +97,14 @@ class PlacesListViewModel {
     }
 }
 
+// MARK: - Private functions and properties
+
 private extension PlacesListViewModel {
 
     var locationFromCustomLocationFields: Location? {
-        guard let latitude = Double(customLocationLatitude.replacingOccurrences(of: ",", with: ".")), let longitude = Double(customLocationLongitude.replacingOccurrences(of: ",", with: ".")) else {
+        // Slightly hacky: the `decimalPad` keyboard type uses comma as a separator, the Double type requires a dot separator
+        guard let latitude = customLocationLatitude.doubleValue,
+              let longitude = customLocationLongitude.doubleValue else {
             return nil
         }
 
@@ -123,7 +130,7 @@ private extension PlacesListViewModel {
             remoteLocations = retrievedLocations
             updateDataState()
         } catch {
-            state = .error(message: "Error loading locations. Check your internet connection and try again")
+            showFullScreenError("Error loading locations. Check your internet connection and try again")
         }
     }
 
@@ -135,7 +142,7 @@ private extension PlacesListViewModel {
         }
     }
 
-    func openlocation(_ location: Location, openURLAction: OpenURLAction) {
+    func openLocation(_ location: Location, openURLAction: OpenURLAction) {
         guard let url = wikipediaURLForLocation(location) else {
             showFloatingError("The location cannot opened. The location seems to have incorrect coordinates.")
             return
@@ -168,9 +175,23 @@ private extension PlacesListViewModel {
         }
     }
 
+    func showFullScreenError(_ message: String) {
+        state = .error(message: message)
+    }
+
     func clearCustomLocationData() {
         customLocationName = ""
         customLocationLatitude = ""
         customLocationLongitude = ""
+    }
+}
+
+private extension String {
+    var doubleValue: Double? {
+        let sanitizedString = self
+            .replacingOccurrences(of: ",", with: ".")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return Double(sanitizedString)
     }
 }

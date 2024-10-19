@@ -12,10 +12,10 @@ import Foundation
 struct LocationServiceTests {
 
     @Test("Incorrect configured URL should not result in a service call") func shouldCheckForIncorrectJSONURL() async throws {
-        let urlSession = MockURLSession(mockResponses: [:])
+        let dataRequestService = DataRequestServiceMock(mockResponses: [:])
         let sut = LocationService(
-            urlSession: urlSession,
-            appConfigurationRepository: MockAppConfigurationRepository(
+            dataRequestService: dataRequestService,
+            appConfigurationRepository: AppConfigurationRepositoryMock(
                 locationJSONURLStub: { nil }
             )
         )
@@ -29,20 +29,20 @@ struct LocationServiceTests {
         let url = URL(string: "http://www.someurl.com")!
         let response = LocationListResponse(locations: Location.examples)
         let expectedData = try JSONEncoder().encode(response)
-        let urlSession = MockURLSession(mockResponses: [
+        let dataRequestService = DataRequestServiceMock(mockResponses: [
             url: expectedData
         ])
 
         let sut = LocationService(
-            urlSession: urlSession,
-            appConfigurationRepository: MockAppConfigurationRepository(
+            dataRequestService: dataRequestService,
+            appConfigurationRepository: AppConfigurationRepositoryMock(
                 locationJSONURLStub: { url }
             )
         )
 
         let result = try await sut.getLocations()
 
-        #expect(result == Location.examples)
+        #expect(result == response.locations)
     }
 
     @Test("Incorrect data format received") func getLocationsThrowsErrorOnIncorrectDecoding() async throws {
@@ -50,13 +50,13 @@ struct LocationServiceTests {
         let url = URL(string: "http://www.someurl.com")!
         let response = Location.examples // Incorrect data. Should be wrapped in a `LocationListResponse`
         let expectedData = try JSONEncoder().encode(response)
-        let urlSession = MockURLSession(mockResponses: [
+        let dataRequestService = DataRequestServiceMock(mockResponses: [
             url: expectedData
         ])
 
         let sut = LocationService(
-            urlSession: urlSession,
-            appConfigurationRepository: MockAppConfigurationRepository(
+            dataRequestService: dataRequestService,
+            appConfigurationRepository: AppConfigurationRepositoryMock(
                 locationJSONURLStub: { url }
             )
         )

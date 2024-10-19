@@ -11,9 +11,10 @@ protocol LocationServiceProtocol {
     func getLocations() async throws -> [Location]
 }
 
+/// Executes network calls to retrieve location data from a remote JSON file
 final class LocationService: LocationServiceProtocol {
 
-    private let urlSession: DataRequestServiceProtocol
+    private let dataRequestService: DataRequestServiceProtocol
     private let appConfigurationRepository: AppConfigurationRepositoryProtocol
 
     enum ServiceError: Error {
@@ -21,10 +22,10 @@ final class LocationService: LocationServiceProtocol {
     }
 
     init(
-        urlSession: DataRequestServiceProtocol,
+        dataRequestService: DataRequestServiceProtocol,
         appConfigurationRepository: AppConfigurationRepositoryProtocol
     ) {
-        self.urlSession = urlSession
+        self.dataRequestService = dataRequestService
         self.appConfigurationRepository = appConfigurationRepository
     }
 
@@ -34,24 +35,8 @@ final class LocationService: LocationServiceProtocol {
             throw ServiceError.incorrectURLConfiguration
         }
 
-        let response: LocationListResponse = try await urlSession.request(from: url)
+        let response: LocationListResponse = try await dataRequestService.request(from: url)
 
         return response.locations
-    }
-}
-
-/// An implementation of LocationServiceProtocol that can be used to provide fake data in SwiftUI previews or Unit Tests
-final class MockLocationService: LocationServiceProtocol {
-
-    var getLocationsStub: () async throws -> [Location]
-
-    init(
-        getLocationsStub: @escaping () async throws -> [Location] = { [] }
-    ) {
-        self.getLocationsStub = getLocationsStub
-    }
-
-    func getLocations() async throws -> [Location] {
-        try await getLocationsStub()
     }
 }

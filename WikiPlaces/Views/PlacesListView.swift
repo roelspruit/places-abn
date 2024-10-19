@@ -30,6 +30,16 @@ struct PlacesListView: View {
         }
         .overlay(
             alignment: .bottom,
+            content: {
+                Text("ABN AMRO Hiring Assignment 2024.\nCode by Roel Spruit.")
+                    .padding(.horizontal, 50)
+                    .font(.caption)
+                    .italic()
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            })
+        .overlay(
+            alignment: .bottom,
             content: floatingErrorMessageView
         )
         .sheet(
@@ -40,6 +50,7 @@ struct PlacesListView: View {
         .animation(.easeInOut, value: viewModel.floatingErrorMessage)
         .animation(.easeInOut, value: viewModel.showAddCustomLocationSheet)
         .navigationTitle("Locations")
+        .navigationBarTitleDisplayMode(.inline)
         .task {
             await viewModel.onTask()
         }
@@ -58,6 +69,8 @@ struct PlacesListView: View {
             })
             .foregroundStyle(.primary)
         }
+        .foregroundStyle(Color("ABNGreen"))
+        .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Add Location", systemImage: "plus") {
@@ -152,8 +165,8 @@ struct PlacesListView: View {
             .autocorrectionDisabled()
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save and open") {
-                        viewModel.onSaveCustomLocationTap(openURLAction: openURL)
+                    Button("Save") {
+                        viewModel.onSaveCustomLocationTap()
                     }
                     .disabled(viewModel.customLocationIsInvalid)
                 }
@@ -176,7 +189,7 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: MockLocationService(getLocationsStub: {
+                locationService: LocationServiceMock(getLocationsStub: {
                     return Location.examples
                 })
             )
@@ -188,7 +201,7 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: MockLocationService(getLocationsStub: {
+                locationService: LocationServiceMock(getLocationsStub: {
                     while true { }
                     return []
                 })
@@ -201,7 +214,7 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: MockLocationService(getLocationsStub: {
+                locationService: LocationServiceMock(getLocationsStub: {
                     return []
                 })
             )
@@ -213,7 +226,7 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: MockLocationService(getLocationsStub: {
+                locationService: LocationServiceMock(getLocationsStub: {
                     throw LocationService.ServiceError.incorrectURLConfiguration
                 })
             )
@@ -221,10 +234,11 @@ struct PlacesListView: View {
     }
 }
 
+// Slight exception in showing this specific preview because we want to modify the state of the sheet in the viewmodel
 struct PlacesListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PlacesListViewModel(
-            locationService: MockLocationService(getLocationsStub: {
+            locationService: LocationServiceMock(getLocationsStub: {
                 throw LocationService.ServiceError.incorrectURLConfiguration
             })
         )

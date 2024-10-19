@@ -11,6 +11,7 @@ protocol AppConfigurationRepositoryProtocol {
     var locationJSONURL: URL? { get }
 }
 
+/// Provides strongly typed access to information from the app bundle's `infoDictionary`
 final class AppConfigurationRepository: AppConfigurationRepositoryProtocol {
 
     private enum InfoDictionaryKey: String {
@@ -20,7 +21,11 @@ final class AppConfigurationRepository: AppConfigurationRepositoryProtocol {
     var locationJSONURL: URL? {
         getURLDictionaryValue(withKey: .locationJSONURL)
     }
+}
 
+// MARK: - InfoDictionary access
+
+private extension AppConfigurationRepository {
     private func getURLDictionaryValue(withKey key: InfoDictionaryKey) -> URL? {
         guard let urlString = getStringDictionaryValue(withKey: key) else { return nil }
         return URL(string: urlString)
@@ -28,18 +33,5 @@ final class AppConfigurationRepository: AppConfigurationRepositoryProtocol {
 
     private func getStringDictionaryValue(withKey key: InfoDictionaryKey) -> String? {
         Bundle.main.infoDictionary?[key.rawValue] as? String
-    }
-}
-
-final class MockAppConfigurationRepository: AppConfigurationRepositoryProtocol {
-
-    private var locationJSONURLStub: () -> URL?
-
-    init(locationJSONURLStub: @escaping () -> URL?) {
-        self.locationJSONURLStub = locationJSONURLStub
-    }
-
-    var locationJSONURL: URL? {
-        locationJSONURLStub()
     }
 }

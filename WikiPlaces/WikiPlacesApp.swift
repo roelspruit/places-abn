@@ -14,7 +14,7 @@ struct WikiPlacesApp: App {
             NavigationStack {
                 PlacesListView(
                     viewModel: .init(locationService: LocationService(
-                        urlSession: URLSession.shared,
+                        dataRequestService: URLSession.shared,
                         appConfigurationRepository: AppConfigurationRepository()
                     ))
                 )

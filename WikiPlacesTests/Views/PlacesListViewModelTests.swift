@@ -16,7 +16,7 @@ struct PlacesListViewModelTests {
     @Test("Location service should be called when view appears")
     func dataShouldLoadOnAppear() async throws {
         await confirmation { confirmation in
-            let locationService = MockLocationService(getLocationsStub: {
+            let locationService = LocationServiceMock(getLocationsStub: {
                 confirmation.confirm()
                 return Location.examples
             })
@@ -32,7 +32,7 @@ struct PlacesListViewModelTests {
     @Test("Location service should be called when tapping retry button")
     func dataShouldLoadOnRetry() async throws {
         await confirmation { confirmation in
-            let locationService = MockLocationService(getLocationsStub: {
+            let locationService = LocationServiceMock(getLocationsStub: {
                 confirmation.confirm()
                 return Location.examples
             })
@@ -51,7 +51,7 @@ struct PlacesListViewModelTests {
     func locationTapShouldOpenWikipediaURL() async throws {
         await confirmation { confirmation in
             let location = Location.examples.first!
-            let sut = PlacesListViewModel(locationService: MockLocationService())
+            let sut = PlacesListViewModel(locationService: LocationServiceMock())
             var openedURL: URL?
             let urlAction = await OpenURLAction { url in
                 openedURL = url
@@ -72,7 +72,7 @@ struct PlacesListViewModelTests {
             // Location with invalid GPS coordinates
             let location = Location(name: nil, latitude: -100, longitude: 200)
 
-            let sut = PlacesListViewModel(locationService: MockLocationService())
+            let sut = PlacesListViewModel(locationService: LocationServiceMock())
             let urlAction = await OpenURLAction { url in
                 confirmation.confirm()
                 return .handled
@@ -88,7 +88,7 @@ struct PlacesListViewModelTests {
     func failingURLActionShouldShowError() async throws {
         await confirmation { confirmation in
             let location = Location.examples.first!
-            let sut = PlacesListViewModel(locationService: MockLocationService())
+            let sut = PlacesListViewModel(locationService: LocationServiceMock())
             let urlAction = await OpenURLAction { url in
                 confirmation.confirm()
                 return .discarded
@@ -104,7 +104,7 @@ struct PlacesListViewModelTests {
 
     @Test("Show custom location sheet")
     func addCustomLocationShouldShowSheet() async throws {
-        let sut = PlacesListViewModel(locationService: MockLocationService())
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
 
         sut.onAddCustomLocationTap()
 
@@ -113,7 +113,7 @@ struct PlacesListViewModelTests {
 
     @Test("Cancel custom location sheet")
     func cancelAddCustomLocationShouldHideSheet() async throws {
-        let sut = PlacesListViewModel(locationService: MockLocationService())
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
 
         sut.onAddCustomLocationTap()
         sut.onCancelAddingCustomLocationTap()
@@ -123,7 +123,7 @@ struct PlacesListViewModelTests {
 
     @Test("Dismissing custom location sheet should clear fields")
     func dismissCustomLocationShouldClearFields() async throws {
-        let sut = PlacesListViewModel(locationService: MockLocationService())
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
         sut.customLocationName = "Some Location Name"
         sut.customLocationLatitude = "90.0"
         sut.customLocationLongitude = "180.0"
@@ -144,7 +144,7 @@ struct PlacesListViewModelTests {
         ("Out-of-bounds longitude", "52.3547498", "181")
     ])
     func invalidCustomLocationFields(name: String, latitude: String, longitude: String) {
-        let sut = PlacesListViewModel(locationService: MockLocationService())
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
         sut.customLocationName = name
         sut.customLocationLatitude = latitude
         sut.customLocationLongitude = longitude
@@ -160,7 +160,7 @@ struct PlacesListViewModelTests {
         ("Valid Coordinates", "-90", "-180")
     ])
     func validCustomLocationFields(name: String, latitude: String, longitude: String) {
-        let sut = PlacesListViewModel(locationService: MockLocationService())
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
         sut.customLocationName = name
         sut.customLocationLatitude = latitude
         sut.customLocationLongitude = longitude
@@ -170,27 +170,17 @@ struct PlacesListViewModelTests {
 
     @Test("Saving location should update list and open wikipedia")
     func saveCustomLocationShouldUpdateData() async {
+        let locationService = LocationServiceMock()
+        let sut = PlacesListViewModel(locationService: locationService)
+        sut.customLocationName = "Some Location Name"
+        sut.customLocationLatitude = "90.0"
+        sut.customLocationLongitude = "180.0"
 
-        await confirmation { confirmation in
+        sut.onSaveCustomLocationTap()
 
-            let locationService = MockLocationService()
-            let sut = PlacesListViewModel(locationService: locationService)
-            sut.customLocationName = "Some Location Name"
-            sut.customLocationLatitude = "90.0"
-            sut.customLocationLongitude = "180.0"
-
-            let urlAction = await OpenURLAction { url in
-                confirmation.confirm()
-                return .handled
-            }
-
-
-            sut.onSaveCustomLocationTap(openURLAction: urlAction)
-
-            #expect(sut.data.count == 1)
-            #expect(sut.data.first?.displayName == "Some Location Name")
-            #expect(sut.data.first?.latitude == 90)
-            #expect(sut.data.first?.longitude == 180)
-        }
+        #expect(sut.data.count == 1)
+        #expect(sut.data.first?.displayName == "Some Location Name")
+        #expect(sut.data.first?.latitude == 90)
+        #expect(sut.data.first?.longitude == 180)
     }
 }
