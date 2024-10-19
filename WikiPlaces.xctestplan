@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "989FBB5A-0AE5-45D1-B208-57A108F5BF9A",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WikiPlaces.xcodeproj",
+      "identifier" : "F4B800A32CC00B390026C01B",
+      "name" : "WikiPlaces"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:WikiPlaces.xcodeproj",
+        "identifier" : "F4B800B32CC00B3A0026C01B",
+        "name" : "WikiPlacesTests"
+      }
+    }
+  ],
+  "version" : 1
+}

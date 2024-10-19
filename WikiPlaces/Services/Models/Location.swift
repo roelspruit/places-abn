@@ -8,9 +8,11 @@
 import CoreLocation
 
 struct Location: Decodable {
+    
     let name: String?
     let latitude: CLLocationDegrees
     let longitude: CLLocationDegrees
+    var isUserLocation: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -18,6 +20,8 @@ struct Location: Decodable {
         case longitude = "long"
     }
 }
+
+extension Location: Equatable { }
 
 extension Location: Identifiable {
 
@@ -27,6 +31,11 @@ extension Location: Identifiable {
 
     var displayName: String {
         name ?? "\(latitude), \(longitude)"
+    }
+
+    var hasValidCoordinate: Bool {
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        return CLLocationCoordinate2DIsValid(coordinate)
     }
 
     static var examples: [Location] = [

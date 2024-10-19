@@ -14,19 +14,12 @@
 			remoteGlobalIDString = F4B800A32CC00B390026C01B;
 			remoteInfo = WikiPlaces;
 		};
-		F4B800BF2CC00B3A0026C01B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F4B8009C2CC00B390026C01B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F4B800A32CC00B390026C01B;
-			remoteInfo = WikiPlaces;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		F4B800A42CC00B390026C01B /* WikiPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WikiPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B800B42CC00B3A0026C01B /* WikiPlacesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikiPlacesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4B800BE2CC00B3A0026C01B /* WikiPlacesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikiPlacesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4DDC6C72CC3C99500CDB8F4 /* WikiPlaces.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WikiPlaces.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,14 +38,6 @@
 			);
 			target = F4B800B32CC00B3A0026C01B /* WikiPlacesTests */;
 		};
-		F419A5F52CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Config-Debug.xcconfig",
-				"Config-Release.xcconfig",
-			);
-			target = F4B800BD2CC00B3A0026C01B /* WikiPlacesUITests */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -61,7 +46,6 @@
 			exceptions = (
 				F419A5EF2CC10EC500EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlaces" target */,
 				F419A5F42CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesTests" target */,
-				F419A5F52CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesUITests" target */,
 			);
 			path = WikiPlaces;
 			sourceTree = "<group>";
@@ -69,11 +53,6 @@
 		F4B800B72CC00B3A0026C01B /* WikiPlacesTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = WikiPlacesTests;
-			sourceTree = "<group>";
-		};
-		F4B800C12CC00B3A0026C01B /* WikiPlacesUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WikiPlacesUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -93,22 +72,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F4B800BB2CC00B3A0026C01B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		F4B8009B2CC00B390026C01B = {
 			isa = PBXGroup;
 			children = (
+				F4DDC6C72CC3C99500CDB8F4 /* WikiPlaces.xctestplan */,
 				F4B800A62CC00B390026C01B /* WikiPlaces */,
 				F4B800B72CC00B3A0026C01B /* WikiPlacesTests */,
-				F4B800C12CC00B3A0026C01B /* WikiPlacesUITests */,
 				F4B800A52CC00B390026C01B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,7 +90,6 @@
 			children = (
 				F4B800A42CC00B390026C01B /* WikiPlaces.app */,
 				F4B800B42CC00B3A0026C01B /* WikiPlacesTests.xctest */,
-				F4B800BE2CC00B3A0026C01B /* WikiPlacesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,29 +142,6 @@
 			productReference = F4B800B42CC00B3A0026C01B /* WikiPlacesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F4B800BD2CC00B3A0026C01B /* WikiPlacesUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F4B800CE2CC00B3A0026C01B /* Build configuration list for PBXNativeTarget "WikiPlacesUITests" */;
-			buildPhases = (
-				F4B800BA2CC00B3A0026C01B /* Sources */,
-				F4B800BB2CC00B3A0026C01B /* Frameworks */,
-				F4B800BC2CC00B3A0026C01B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F4B800C02CC00B3A0026C01B /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				F4B800C12CC00B3A0026C01B /* WikiPlacesUITests */,
-			);
-			name = WikiPlacesUITests;
-			packageProductDependencies = (
-			);
-			productName = WikiPlacesUITests;
-			productReference = F4B800BE2CC00B3A0026C01B /* WikiPlacesUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -209,10 +157,7 @@
 					};
 					F4B800B32CC00B3A0026C01B = {
 						CreatedOnToolsVersion = 16.0;
-						TestTargetID = F4B800A32CC00B390026C01B;
-					};
-					F4B800BD2CC00B3A0026C01B = {
-						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 						TestTargetID = F4B800A32CC00B390026C01B;
 					};
 				};
@@ -233,7 +178,6 @@
 			targets = (
 				F4B800A32CC00B390026C01B /* WikiPlaces */,
 				F4B800B32CC00B3A0026C01B /* WikiPlacesTests */,
-				F4B800BD2CC00B3A0026C01B /* WikiPlacesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -247,13 +191,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F4B800B22CC00B3A0026C01B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F4B800BC2CC00B3A0026C01B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -277,13 +214,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F4B800BA2CC00B3A0026C01B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -291,11 +221,6 @@
 			isa = PBXTargetDependency;
 			target = F4B800A32CC00B390026C01B /* WikiPlaces */;
 			targetProxy = F4B800B52CC00B3A0026C01B /* PBXContainerItemProxy */;
-		};
-		F4B800C02CC00B3A0026C01B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F4B800A32CC00B390026C01B /* WikiPlaces */;
-			targetProxy = F4B800BF2CC00B3A0026C01B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -487,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7X4S2WGMMS;
@@ -496,6 +422,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.dinkywonder.WikiPlacesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WikiPlaces.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WikiPlaces";
@@ -506,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7X4S2WGMMS;
@@ -518,40 +446,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WikiPlaces.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WikiPlaces";
-			};
-			name = Release;
-		};
-		F4B800CF2CC00B3A0026C01B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7X4S2WGMMS;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.dinkywonder.WikiPlacesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = WikiPlaces;
-			};
-			name = Debug;
-		};
-		F4B800D02CC00B3A0026C01B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7X4S2WGMMS;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.dinkywonder.WikiPlacesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = WikiPlaces;
 			};
 			name = Release;
 		};
@@ -581,15 +475,6 @@
 			buildConfigurations = (
 				F4B800CC2CC00B3A0026C01B /* Debug */,
 				F4B800CD2CC00B3A0026C01B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F4B800CE2CC00B3A0026C01B /* Build configuration list for PBXNativeTarget "WikiPlacesUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F4B800CF2CC00B3A0026C01B /* Debug */,
-				F4B800D02CC00B3A0026C01B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

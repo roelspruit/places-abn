@@ -35,15 +35,18 @@ final class LocationService: LocationServiceProtocol {
     }
 }
 
+/// An implementation of LocationServiceProtocol that can be used to provide fake data in SwiftUI previews or Unit Tests
 final class MockLocationService: LocationServiceProtocol {
 
-    private var getLocations_callBack: () async throws -> [Location]
+    var getLocationsStub: () async throws -> [Location]
 
-    init(getLocations_callBack: @escaping () async throws -> [Location]) {
-        self.getLocations_callBack = getLocations_callBack
+    init(
+        getLocationsStub: @escaping () async throws -> [Location] = { [] }
+    ) {
+        self.getLocationsStub = getLocationsStub
     }
 
     func getLocations() async throws -> [Location] {
-        try await getLocations_callBack()
+        try await getLocationsStub()
     }
 }
