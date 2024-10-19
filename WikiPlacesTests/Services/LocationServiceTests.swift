@@ -11,7 +11,7 @@ import Foundation
 
 struct LocationServiceTests {
 
-    @Test func shouldCheckForIncorrectJSONURL() async throws {
+    @Test("Incorrect configured URL should not result in a service call") func shouldCheckForIncorrectJSONURL() async throws {
         let urlSession = MockURLSession(mockResponses: [:])
         let sut = LocationService(
             urlSession: urlSession,
@@ -25,7 +25,7 @@ struct LocationServiceTests {
         })
     }
 
-    @Test func getLocationsAndDecode() async throws {
+    @Test("Request to a valid URL with valid data") func getLocationsAndDecode() async throws {
         let url = URL(string: "http://www.someurl.com")!
         let response = LocationListResponse(locations: Location.examples)
         let expectedData = try JSONEncoder().encode(response)
@@ -45,7 +45,7 @@ struct LocationServiceTests {
         #expect(result == Location.examples)
     }
 
-    @Test func getLocationsThrowsErrorOnIncorrectDecoding() async throws {
+    @Test("Incorrect data format received") func getLocationsThrowsErrorOnIncorrectDecoding() async throws {
 
         let url = URL(string: "http://www.someurl.com")!
         let response = Location.examples // Incorrect data. Should be wrapped in a `LocationListResponse`

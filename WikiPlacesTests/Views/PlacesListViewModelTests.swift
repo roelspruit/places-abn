@@ -13,7 +13,8 @@ struct PlacesListViewModelTests {
 
     // MARK: - Loading
 
-    @Test func dataShouldLoadOnAppear() async throws {
+    @Test("Location service should be called when view appears")
+    func dataShouldLoadOnAppear() async throws {
         await confirmation { confirmation in
             let locationService = MockLocationService(getLocationsStub: {
                 confirmation.confirm()
@@ -28,7 +29,8 @@ struct PlacesListViewModelTests {
         }
     }
 
-    @Test func dataShouldLoadOnRetry() async throws {
+    @Test("Location service should be called when tapping retry button")
+    func dataShouldLoadOnRetry() async throws {
         await confirmation { confirmation in
             let locationService = MockLocationService(getLocationsStub: {
                 confirmation.confirm()
@@ -45,7 +47,8 @@ struct PlacesListViewModelTests {
 
     // MARK: - Location Opening
 
-    @Test func locationTapShouldOpenWikipediaURL() async throws {
+    @Test("Tapping a location should open the wikipedia app")
+    func locationTapShouldOpenWikipediaURL() async throws {
         await confirmation { confirmation in
             let location = Location.examples.first!
             let sut = PlacesListViewModel(locationService: MockLocationService())
@@ -63,7 +66,8 @@ struct PlacesListViewModelTests {
         }
     }
 
-    @Test func incorrectLocationShouldShowError() async throws {
+    @Test("Tapping location with incorrect coordinates should show an error")
+    func incorrectLocationShouldShowError() async throws {
         await confirmation(expectedCount: 0) { confirmation in
             // Location with invalid GPS coordinates
             let location = Location(name: nil, latitude: -100, longitude: 200)
@@ -76,11 +80,12 @@ struct PlacesListViewModelTests {
 
             sut.onLocationTap(location, openURLAction: urlAction)
 
-            #expect(sut.floatingErrorMessage == "The location cannot opened due to incorrect coordinates.")
+            #expect(sut.floatingErrorMessage == "The location cannot opened. The location seems to have incorrect coordinates.")
         }
     }
 
-    @Test func failingURLActionShouldShowError() async throws {
+    @Test("Failure to open wikipedia app should show an error")
+    func failingURLActionShouldShowError() async throws {
         await confirmation { confirmation in
             let location = Location.examples.first!
             let sut = PlacesListViewModel(locationService: MockLocationService())
@@ -97,7 +102,8 @@ struct PlacesListViewModelTests {
 
     // MARK: - Custom Location
 
-    @Test func addCustomLocationShouldShowSheet() async throws {
+    @Test("Show custom location sheet")
+    func addCustomLocationShouldShowSheet() async throws {
         let sut = PlacesListViewModel(locationService: MockLocationService())
 
         sut.onAddCustomLocationTap()
@@ -105,7 +111,8 @@ struct PlacesListViewModelTests {
         #expect(sut.showAddCustomLocationSheet)
     }
 
-    @Test func cancelAddCustomLocationShouldHideSheet() async throws {
+    @Test("Cancel custom location sheet")
+    func cancelAddCustomLocationShouldHideSheet() async throws {
         let sut = PlacesListViewModel(locationService: MockLocationService())
 
         sut.onAddCustomLocationTap()
@@ -114,7 +121,8 @@ struct PlacesListViewModelTests {
         #expect(sut.showAddCustomLocationSheet == false)
     }
 
-    @Test func dismissCustomLocationShouldClearFields() async throws {
+    @Test("Dismissing custom location sheet should clear fields")
+    func dismissCustomLocationShouldClearFields() async throws {
         let sut = PlacesListViewModel(locationService: MockLocationService())
         sut.customLocationName = "Some Location Name"
         sut.customLocationLatitude = "90.0"
@@ -160,18 +168,29 @@ struct PlacesListViewModelTests {
         #expect(!sut.customLocationIsInvalid)
     }
 
-    @Test func saveCustomLocationShouldUpdateData() {
-        let locationService = MockLocationService()
-        let sut = PlacesListViewModel(locationService: locationService)
-        sut.customLocationName = "Some Location Name"
-        sut.customLocationLatitude = "90.0"
-        sut.customLocationLongitude = "180.0"
+    @Test("Saving location should update list and open wikipedia")
+    func saveCustomLocationShouldUpdateData() async {
 
-        sut.onSaveCustomLocationTap()
+        await confirmation { confirmation in
 
-        #expect(sut.data.count == 1)
-        #expect(sut.data.first?.displayName == "Some Location Name")
-        #expect(sut.data.first?.latitude == 90)
-        #expect(sut.data.first?.longitude == 180)
+            let locationService = MockLocationService()
+            let sut = PlacesListViewModel(locationService: locationService)
+            sut.customLocationName = "Some Location Name"
+            sut.customLocationLatitude = "90.0"
+            sut.customLocationLongitude = "180.0"
+
+            let urlAction = await OpenURLAction { url in
+                confirmation.confirm()
+                return .handled
+            }
+
+
+            sut.onSaveCustomLocationTap(openURLAction: urlAction)
+
+            #expect(sut.data.count == 1)
+            #expect(sut.data.first?.displayName == "Some Location Name")
+            #expect(sut.data.first?.latitude == 90)
+            #expect(sut.data.first?.longitude == 180)
+        }
     }
 }
