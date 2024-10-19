@@ -5,13 +5,17 @@
 //  Created by Roel Spruit on 17/10/2024.
 //
 import SwiftUI
+import CoreLocation
 
 @Observable
 class PlacesListViewModel {
 
     var state: State = .loading
+    var floatingErrorMessage: String? = nil
 
     private let locationService: LocationServiceProtocol
+    private let floatingErrorAutoHideInterval: TimeInterval = 5
+    private var floatingErrorAutoHideTimer: Timer?
 
     enum State {
         case loading
@@ -35,15 +39,15 @@ class PlacesListViewModel {
 
     func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
         guard let url = wikipediaURLForLocation(location) else {
-            // TODO: show error
+            showFloatingError("The location cannot opened due to incorrect coordinates")
             return
         }
 
-        openURLAction.callAsFunction(url) { accepted in
-            if accepted {
+        openURLAction.callAsFunction(url) { [weak self] accepted in
+            guard accepted else {
+                self?.showFloatingError("The location cannot be opened. Make sure you have the Wikipedia app installed.")
                 return
             }
-            // TODO: show error
         }
     }
 }
@@ -56,11 +60,27 @@ private extension PlacesListViewModel {
             let retrievedLocations: [Location] = try await locationService.getLocations()
             state = .data(locations: retrievedLocations)
         } catch {
-            state = .error(message: "Error loading places. Check your internet connection and try again")
+            state = .error(message: "Error loading locations. Check your internet connection and try again")
         }
     }
 
     func wikipediaURLForLocation(_ location: Location) -> URL? {
-        URL(string: "wikipedia://en.wikipedia.org/wiki/Red")
+        let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        guard CLLocationCoordinate2DIsValid(coordinate) else {
+            return nil
+        }
+
+        return URL(string: "wikipedia://places/?WMFCoordinate=\(location.latitude),\(location.longitude)")
+    }
+
+    func showFloatingError(_ message: String) {
+
+        floatingErrorAutoHideTimer?.invalidate()
+
+        floatingErrorMessage = message
+        floatingErrorAutoHideTimer = Timer.scheduledTimer(withTimeInterval: floatingErrorAutoHideInterval, repeats: false) { [weak self] _ in
+            self?.floatingErrorMessage = nil
+            self?.floatingErrorAutoHideTimer = nil
+        }
     }
 }

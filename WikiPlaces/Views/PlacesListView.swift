@@ -23,7 +23,23 @@ struct PlacesListView: View {
                 errorView(message)
             }
         }
-        .navigationTitle("Places")
+        .overlay(alignment: .bottom, content: {
+            if let floatingErrorMessage = viewModel.floatingErrorMessage {
+                VStack(alignment: .leading) {
+                    Text(floatingErrorMessage)
+                        .foregroundStyle(.white)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .background(Color("ABNGreen"))
+                .onTapGesture {
+                    viewModel.floatingErrorMessage = nil
+                }
+            }
+        })
+        .animation(.easeInOut, value: viewModel.floatingErrorMessage)
+        .navigationTitle("Locations")
         .task {
             await viewModel.onTask()
         }
@@ -44,7 +60,7 @@ struct PlacesListView: View {
     }
 
     private func loadingView() -> some View {
-        ProgressView("Loading places")
+        ProgressView("Loading locations")
             .controlSize(.extraLarge)
             .padding()
     }
