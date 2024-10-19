@@ -7,8 +7,8 @@
 
 import CoreLocation
 
-struct Location: Decodable {
-    
+struct Location: Codable {
+
     let name: String?
     let latitude: CLLocationDegrees
     let longitude: CLLocationDegrees

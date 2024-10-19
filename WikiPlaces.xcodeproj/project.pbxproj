@@ -108,6 +108,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F481B7732CC3EA2200EBB148 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F4B800A62CC00B390026C01B /* WikiPlaces */,
@@ -171,6 +172,9 @@
 			);
 			mainGroup = F4B8009B2CC00B390026C01B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F481B7712CC3E9CA00EBB148 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F4B800A52CC00B390026C01B /* Products */;
 			projectDirPath = "";
@@ -217,6 +221,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F481B7732CC3EA2200EBB148 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = F481B7722CC3EA2200EBB148 /* SwiftLintBuildToolPlugin */;
+		};
 		F4B800B62CC00B3A0026C01B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F4B800A32CC00B390026C01B /* WikiPlaces */;
@@ -353,10 +361,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"WikiPlaces/Preview Content\"";
-				DEVELOPMENT_TEAM = 7X4S2WGMMS;
+				DEVELOPMENT_TEAM = 74S47PCZWX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WikiPlaces/Info.plist;
@@ -372,6 +380,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.dinkywonder.WikiPlaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -383,10 +392,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"WikiPlaces/Preview Content\"";
-				DEVELOPMENT_TEAM = 7X4S2WGMMS;
+				DEVELOPMENT_TEAM = 74S47PCZWX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WikiPlaces/Info.plist;
@@ -402,6 +411,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.dinkywonder.WikiPlaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -480,6 +490,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F481B7712CC3E9CA00EBB148 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F481B7722CC3EA2200EBB148 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F481B7712CC3E9CA00EBB148 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F4B8009C2CC00B390026C01B /* Project object */;
 }

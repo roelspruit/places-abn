@@ -13,23 +13,28 @@ protocol LocationServiceProtocol {
 
 final class LocationService: LocationServiceProtocol {
 
+    private let urlSession: DataRequestServiceProtocol
     private let appConfigurationRepository: AppConfigurationRepositoryProtocol
 
-    enum LocationServiceError: Error {
+    enum ServiceError: Error {
         case incorrectURLConfiguration
     }
 
-    init(appConfigurationRepository: AppConfigurationRepositoryProtocol) {
+    init(
+        urlSession: DataRequestServiceProtocol,
+        appConfigurationRepository: AppConfigurationRepositoryProtocol
+    ) {
+        self.urlSession = urlSession
         self.appConfigurationRepository = appConfigurationRepository
     }
 
     func getLocations() async throws -> [Location] {
 
         guard let url = appConfigurationRepository.locationJSONURL else {
-            throw LocationServiceError.incorrectURLConfiguration
+            throw ServiceError.incorrectURLConfiguration
         }
 
-        let response: LocationListResponse = try await URLSession.shared.decode(from: url)
+        let response: LocationListResponse = try await urlSession.request(from: url)
 
         return response.locations
     }

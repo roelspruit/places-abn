@@ -33,13 +33,13 @@ final class AppConfigurationRepository: AppConfigurationRepositoryProtocol {
 
 final class MockAppConfigurationRepository: AppConfigurationRepositoryProtocol {
 
-    private var locationJSONURL_callBack: () -> URL?
+    private var locationJSONURLStub: () -> URL?
 
-    init(locationJSONURL_callBack: @escaping () -> URL?) {
-        self.locationJSONURL_callBack = locationJSONURL_callBack
+    init(locationJSONURLStub: @escaping () -> URL?) {
+        self.locationJSONURLStub = locationJSONURLStub
     }
 
     var locationJSONURL: URL? {
-        locationJSONURL_callBack()
+        locationJSONURLStub()
     }
 }

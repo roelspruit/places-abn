@@ -12,6 +12,9 @@ struct PlacesListView: View {
     @State var viewModel: PlacesListViewModel
     @Environment(\.openURL) var openURL
 
+    @AccessibilityFocusState
+    private var isFloatingErrorMessageFocussed: Bool
+
     var body: some View {
         Group {
             switch viewModel.state {
@@ -46,13 +49,13 @@ struct PlacesListView: View {
         List(locations) { location in
             Button(action: {
                 viewModel.onLocationTap(location, openURLAction: openURL)
-            }) {
+            }, label: {
                 HStack {
                     Label(location.displayName, systemImage: location.isUserLocation ? "person" : "globe")
                     Spacer()
                     Image(systemName: "chevron.right")
                 }
-            }
+            })
             .foregroundStyle(.primary)
         }
         .toolbar {
@@ -100,6 +103,9 @@ struct PlacesListView: View {
                     .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity)
+            .onAppear(perform: { isFloatingErrorMessageFocussed = true})
+            .onDisappear(perform: { isFloatingErrorMessageFocussed = false})
+            .accessibilityFocused($isFloatingErrorMessageFocussed)
             .background(Color("ABNGreen"))
             .onTapGesture {
                 viewModel.floatingErrorMessage = nil
@@ -126,20 +132,28 @@ struct PlacesListView: View {
     private func addCustomLocationSheet() -> some View {
         NavigationStack {
             Form {
-                TextField("Name", text: $viewModel.customLocationName)
-                    .clearButton(text: $viewModel.customLocationName)
-                TextField("Latitude", text: $viewModel.customLocationLatitude, axis: .vertical)
-                    .keyboardType(.decimalPad)
-                    .clearButton(text: $viewModel.customLocationLatitude)
-                TextField("Longitude", text: $viewModel.customLocationLongitude, axis: .vertical)
-                    .keyboardType(.decimalPad)
-                    .clearButton(text: $viewModel.customLocationLatitude)
+                Section(content: {
+                    TextField("Name (optional)", text: $viewModel.customLocationName)
+                        .clearButton(text: $viewModel.customLocationName)
+                    TextField("Latitude (between -90.0 and 90.0)", text: $viewModel.customLocationLatitude, axis: .vertical)
+                        .keyboardType(.decimalPad)
+                        .clearButton(text: $viewModel.customLocationLatitude)
+                    TextField("Longitude(between -180.0 and 180)", text: $viewModel.customLocationLongitude, axis: .vertical)
+                        .keyboardType(.decimalPad)
+                        .clearButton(text: $viewModel.customLocationLatitude)
+                }, footer: {
+                    if viewModel.hasEnteredCustomLocationFields && viewModel.customLocationIsInvalid {
+                        Text("Some fields are incorrect. Please check that you have entered correct coordinates.")
+                            .foregroundStyle(.red)
+                            .multilineTextAlignment(.center)
+                    }
+                })
             }
             .autocorrectionDisabled()
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        viewModel.onSaveCustomLocationTap()
+                    Button("Save and open") {
+                        viewModel.onSaveCustomLocationTap(openURLAction: openURL)
                     }
                     .disabled(viewModel.customLocationIsInvalid)
                 }
@@ -175,7 +189,7 @@ struct PlacesListView: View {
         PlacesListView(
             viewModel: .init(
                 locationService: MockLocationService(getLocationsStub: {
-                    while(true){}
+                    while true { }
                     return []
                 })
             )
@@ -200,23 +214,26 @@ struct PlacesListView: View {
         PlacesListView(
             viewModel: .init(
                 locationService: MockLocationService(getLocationsStub: {
-                    throw LocationService.LocationServiceError.incorrectURLConfiguration
+                    throw LocationService.ServiceError.incorrectURLConfiguration
                 })
             )
         )
     }
 }
 
-#Preview("Add Location") {
-    let viewModel = PlacesListViewModel(
-        locationService: MockLocationService(getLocationsStub: {
-            throw LocationService.LocationServiceError.incorrectURLConfiguration
-        })
-    )
-    viewModel.showAddCustomLocationSheet = true
-    return NavigationStack {
-        PlacesListView(
-            viewModel: viewModel
+struct PlacesListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = PlacesListViewModel(
+            locationService: MockLocationService(getLocationsStub: {
+                throw LocationService.ServiceError.incorrectURLConfiguration
+            })
         )
+        viewModel.showAddCustomLocationSheet = true
+        return NavigationStack {
+            PlacesListView(
+                viewModel: viewModel
+            )
+        }
+        .previewDisplayName("Add Location")
     }
 }

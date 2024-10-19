@@ -11,7 +11,9 @@ import CoreLocation
 class PlacesListViewModel {
 
     var state: State = .loading
-    var floatingErrorMessage: String? = nil
+    var floatingErrorMessage: String?
+
+    // Convenience property to get data from state in unit tests
     var data: [Location] {
         guard case .data(let locations) = state else {
             return []
@@ -51,17 +53,7 @@ class PlacesListViewModel {
     }
 
     func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
-        guard let url = wikipediaURLForLocation(location) else {
-            showFloatingError("The location cannot opened due to incorrect coordinates.")
-            return
-        }
-
-        openURLAction.callAsFunction(url) { [weak self] accepted in
-            guard accepted else {
-                self?.showFloatingError("The location cannot be opened. Make sure you have the Wikipedia app installed.")
-                return
-            }
-        }
+        openlocation(location, openURLAction: openURLAction)
     }
 
     func onAddCustomLocationTap() {
@@ -72,7 +64,11 @@ class PlacesListViewModel {
         locationFromCustomLocationFields == nil
     }
 
-    func onSaveCustomLocationTap() {
+    var hasEnteredCustomLocationFields: Bool {
+        !customLocationLatitude.isEmpty && !customLocationLongitude.isEmpty
+    }
+
+    func onSaveCustomLocationTap(openURLAction: OpenURLAction) {
 
         guard let location = locationFromCustomLocationFields else {
             // Field validation is done before the user has the option of even saving a location. No error handling is needed here
@@ -85,6 +81,8 @@ class PlacesListViewModel {
 
         clearCustomLocationData()
         showAddCustomLocationSheet = false
+
+        openlocation(location, openURLAction: openURLAction)
     }
 
     func onCancelAddingCustomLocationTap() {
@@ -134,6 +132,20 @@ private extension PlacesListViewModel {
             state = .empty
         } else {
             state = .data(locations: remoteLocations + customLocations)
+        }
+    }
+
+    func openlocation(_ location: Location, openURLAction: OpenURLAction) {
+        guard let url = wikipediaURLForLocation(location) else {
+            showFloatingError("The location cannot opened. The location seems to have incorrect coordinates.")
+            return
+        }
+
+        openURLAction.callAsFunction(url) { [weak self] accepted in
+            guard accepted else {
+                self?.showFloatingError("The location cannot be opened. Make sure you have the Wikipedia app installed.")
+                return
+            }
         }
     }
 
