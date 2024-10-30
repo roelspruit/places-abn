@@ -65,7 +65,7 @@ extension PlacesListViewModel {
         await getLocations()
     }
 
-    @MainActor func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
+    func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
         openLocation(location, openURLAction: openURLAction)
     }
 
@@ -142,7 +142,7 @@ private extension PlacesListViewModel {
         }
     }
 
-    @MainActor func openLocation(_ location: Location, openURLAction: OpenURLAction) {
+    func openLocation(_ location: Location, openURLAction: OpenURLAction) {
         guard let url = wikipediaURLForLocation(location) else {
             showFloatingError("The location cannot opened. The location seems to have incorrect coordinates.")
             return
