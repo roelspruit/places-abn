@@ -30,16 +30,6 @@ struct PlacesListView: View {
         }
         .overlay(
             alignment: .bottom,
-            content: {
-                Text("ABN AMRO Hiring Assignment 2024.\nCode by Roel Spruit.")
-                    .padding(.horizontal, 50)
-                    .font(.caption)
-                    .italic()
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-            })
-        .overlay(
-            alignment: .bottom,
             content: floatingErrorMessageView
         )
         .sheet(
@@ -80,6 +70,16 @@ struct PlacesListView: View {
                 }
             }
         }
+        .overlay(
+            alignment: .bottom,
+            content: {
+                Text("ABN AMRO Hiring Assignment 2024.\nCode by Roel Spruit.")
+                    .padding(.horizontal, 50)
+                    .font(.caption)
+                    .italic()
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            })
     }
 
     private func loadingView() -> some View {
