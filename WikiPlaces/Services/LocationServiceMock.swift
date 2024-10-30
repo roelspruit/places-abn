@@ -8,10 +8,10 @@
 /// Mock class used for SwiftUI previews and unit tests
 final class LocationServiceMock: LocationServiceProtocol {
 
-    private var getLocationsStub: () async throws -> [Location]
+    private let getLocationsStub: @Sendable () async throws -> [Location]
 
     init(
-        getLocationsStub: @escaping () async throws -> [Location] = { [] }
+        getLocationsStub: @Sendable  @escaping () async throws -> [Location] = { [] }
     ) {
         self.getLocationsStub = getLocationsStub
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol DataRequestServiceProtocol {
+protocol DataRequestServiceProtocol: Sendable {
     func data(from url: URL) async throws -> (Data, URLResponse)
 }
 

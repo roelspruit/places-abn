@@ -7,7 +7,7 @@
 
 import CoreLocation
 
-protocol LocationServiceProtocol {
+protocol LocationServiceProtocol: Sendable {
     func getLocations() async throws -> [Location]
 }
 

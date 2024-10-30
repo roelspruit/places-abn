@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AppConfigurationRepositoryProtocol {
+protocol AppConfigurationRepositoryProtocol: Sendable {
     var locationJSONURL: URL? { get }
 }
 

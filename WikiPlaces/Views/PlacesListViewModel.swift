@@ -7,8 +7,8 @@
 import SwiftUI
 import CoreLocation
 
-@Observable
-class PlacesListViewModel {
+@Observable @MainActor
+final class PlacesListViewModel {
 
     var state: State = .loading
     var floatingErrorMessage: String?
@@ -65,7 +65,7 @@ extension PlacesListViewModel {
         await getLocations()
     }
 
-    func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
+    @MainActor func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
         openLocation(location, openURLAction: openURLAction)
     }
 
@@ -142,7 +142,7 @@ private extension PlacesListViewModel {
         }
     }
 
-    func openLocation(_ location: Location, openURLAction: OpenURLAction) {
+    @MainActor func openLocation(_ location: Location, openURLAction: OpenURLAction) {
         guard let url = wikipediaURLForLocation(location) else {
             showFloatingError("The location cannot opened. The location seems to have incorrect coordinates.")
             return
@@ -170,8 +170,10 @@ private extension PlacesListViewModel {
 
         floatingErrorMessage = message
         floatingErrorAutoHideTimer = Timer.scheduledTimer(withTimeInterval: floatingErrorAutoHideInterval, repeats: false) { [weak self] _ in
-            self?.floatingErrorMessage = nil
-            self?.floatingErrorAutoHideTimer = nil
+            Task { @MainActor in
+                self?.floatingErrorMessage = nil
+                self?.floatingErrorAutoHideTimer = nil
+            }
         }
     }
 

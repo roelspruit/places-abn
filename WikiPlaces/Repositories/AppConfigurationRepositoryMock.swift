@@ -10,9 +10,9 @@ import Foundation
 /// Mock class used for SwiftUI previews and unit tests
 final class AppConfigurationRepositoryMock: AppConfigurationRepositoryProtocol {
 
-    private var locationJSONURLStub: () -> URL?
+    private let locationJSONURLStub: @Sendable () -> URL?
 
-    init(locationJSONURLStub: @escaping () -> URL?) {
+    init(locationJSONURLStub: @Sendable @escaping () -> URL?) {
         self.locationJSONURLStub = locationJSONURLStub
     }
 

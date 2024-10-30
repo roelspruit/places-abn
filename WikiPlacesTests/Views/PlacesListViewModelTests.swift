@@ -9,7 +9,7 @@ import Testing
 @testable import WikiPlaces
 import SwiftUICore
 
-struct PlacesListViewModelTests {
+@MainActor struct PlacesListViewModelTests {
 
     // MARK: - Loading
 
@@ -53,7 +53,7 @@ struct PlacesListViewModelTests {
             let location = Location.examples.first!
             let sut = PlacesListViewModel(locationService: LocationServiceMock())
             var openedURL: URL?
-            let urlAction = await OpenURLAction { url in
+            let urlAction = OpenURLAction { url in
                 openedURL = url
                 confirmation.confirm()
                 return .handled
@@ -73,7 +73,7 @@ struct PlacesListViewModelTests {
             let location = Location(name: nil, latitude: -100, longitude: 200)
 
             let sut = PlacesListViewModel(locationService: LocationServiceMock())
-            let urlAction = await OpenURLAction { url in
+            let urlAction = OpenURLAction { url in
                 confirmation.confirm()
                 return .handled
             }
@@ -89,7 +89,7 @@ struct PlacesListViewModelTests {
         await confirmation { confirmation in
             let location = Location.examples.first!
             let sut = PlacesListViewModel(locationService: LocationServiceMock())
-            let urlAction = await OpenURLAction { url in
+            let urlAction = OpenURLAction { url in
                 confirmation.confirm()
                 return .discarded
             }
