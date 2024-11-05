@@ -26,12 +26,8 @@ final class PlacesListViewModel {
     var customLocationLatitude: String = ""
     var customLocationLongitude: String = ""
 
-    var customLocationIsInvalid: Bool {
-        locationFromCustomLocationFields == nil
-    }
-
-    var hasEnteredCustomLocationFields: Bool {
-        !customLocationLatitude.isEmpty && !customLocationLongitude.isEmpty
+    var customLocationIsValid: Bool {
+        locationFromCustomLocationFields != nil
     }
 
     private let locationService: LocationServiceProtocol

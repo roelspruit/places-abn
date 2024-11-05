@@ -149,7 +149,7 @@ import SwiftUICore
         sut.customLocationLatitude = latitude
         sut.customLocationLongitude = longitude
 
-        #expect(sut.customLocationIsInvalid)
+        #expect(!sut.customLocationIsValid)
     }
 
     @Test("Valid fields for custom locations", arguments: [
@@ -165,7 +165,7 @@ import SwiftUICore
         sut.customLocationLatitude = latitude
         sut.customLocationLongitude = longitude
 
-        #expect(!sut.customLocationIsInvalid)
+        #expect(sut.customLocationIsValid)
     }
 
     @Test("Saving location should update list and open wikipedia")
