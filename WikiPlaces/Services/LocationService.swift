@@ -31,7 +31,7 @@ final class LocationService: LocationServiceProtocol {
 
     func getLocations() async throws -> [Location] {
 
-        guard let url = appConfigurationRepository.locationJSONURL else {
+        guard let url = await appConfigurationRepository.locationJSONURL else {
             throw ServiceError.incorrectURLConfiguration
         }
 

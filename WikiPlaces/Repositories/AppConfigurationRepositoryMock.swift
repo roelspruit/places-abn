@@ -8,7 +8,7 @@
 import Foundation
 
 /// Mock class used for SwiftUI previews and unit tests
-final class AppConfigurationRepositoryMock: AppConfigurationRepositoryProtocol {
+actor AppConfigurationRepositoryMock: AppConfigurationRepositoryProtocol {
 
     private let locationJSONURLStub: @Sendable () -> URL?
 

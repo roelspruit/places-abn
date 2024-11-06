@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol AppConfigurationRepositoryProtocol: Sendable {
+protocol AppConfigurationRepositoryProtocol: Actor, Sendable {
     var locationJSONURL: URL? { get }
 }
 
 /// Provides strongly typed access to information from the app bundle's `infoDictionary`
-final class AppConfigurationRepository: AppConfigurationRepositoryProtocol {
+actor AppConfigurationRepository: AppConfigurationRepositoryProtocol {
 
     private enum InfoDictionaryKey: String {
         case locationJSONURL = "LOCATION_JSON_URL"
