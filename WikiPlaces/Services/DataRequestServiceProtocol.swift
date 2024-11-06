@@ -8,12 +8,10 @@
 import Foundation
 
 protocol DataRequestServiceProtocol: Sendable {
-    func data(from url: URL) async throws -> (Data, URLResponse)
+    func request<T>(from url: URL) async throws -> T where T: Decodable
 }
 
-extension URLSession: DataRequestServiceProtocol { }
-
-extension DataRequestServiceProtocol {
+extension URLSession: DataRequestServiceProtocol {
     func request<T>(from url: URL) async throws -> T where T: Decodable {
         let (data, _) = try await data(from: url)
         return try JSONDecoder().decode(T.self, from: data)

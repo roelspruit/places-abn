@@ -11,8 +11,8 @@ import Foundation
 struct DataRequestServiceMock: DataRequestServiceProtocol {
     let mockResponses: [URL: Data]
 
-    func data(from url: URL) async throws -> (Data, URLResponse) {
-        // Force unwrapping here on purpose to make sure testcases crash on unmocked URLs
-        (mockResponses[url]!, URLResponse())
+    func request<T>(from url: URL) async throws -> T where T: Decodable {
+        let data = mockResponses[url]!
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
