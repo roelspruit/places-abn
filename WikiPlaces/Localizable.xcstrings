@@ -81,6 +81,16 @@
         }
       }
     },
+    "Location Name (optional)" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locatienaam (optioneel)"
+          }
+        }
+      }
+    },
     "Locations" : {
       "localizations" : {
         "nl" : {
@@ -91,22 +101,12 @@
         }
       }
     },
-    "Longitude(between -180.0 and 180)" : {
+    "Longitude (between -180.0 and 180)" : {
       "localizations" : {
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Longitude (tussen -180.0 en 180.0)"
-          }
-        }
-      }
-    },
-    "Name (optional)" : {
-      "localizations" : {
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Locatienaam (optioneel)"
           }
         }
       }
@@ -167,6 +167,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sommige velden zijn niet correct ingevuld. Controleer de velden en zorg dat je correcte coördinaten hebt ingevoerd."
+          }
+        }
+      }
+    },
+    "The location cannot be opened. Make sure you have the Wikipedia app installed." : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De locatie kan niet worden geopend. Zorg dat je de Wikipedia app hebt geïnstalleerd."
+          }
+        }
+      }
+    },
+    "The location cannot opened. The location seems to have incorrect coordinates." : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De locatie kan niet worden geopend omdat deze incorrecte coördinaten bevat."
+          }
+        }
+      }
+    },
+    "Value should be between -90.0 and 90.0" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waarde moet liggen tussen -90.0 en 90.0"
+          }
+        }
+      }
+    },
+    "Value should be between -180.0 and 180.0" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waarde moet liggen tussen -180.0 en 180.0"
           }
         }
       }

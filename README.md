@@ -44,5 +44,6 @@ This is a list I used as an improvised kanban board to keep track of my progress
 - Assignment feedback
     - [x] Perform complete concurrency check and fix warnings
     - [x] Separate View into components
-    - [ ] Extra accessibility check
-    - [ ] 
+    - [x] Extra accessibility check
+    - [x] Localisation (for a11y improvements)
+    - [ ] Form accessibility improvements
