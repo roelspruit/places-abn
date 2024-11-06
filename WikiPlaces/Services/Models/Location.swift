@@ -53,6 +53,7 @@ extension Location {
     static let examples: [Location] = [
         .init(name: "Amsterdam", latitude: 52.3547498, longitude: 4.8339215),
         .init(name: "Copenhagen", latitude: 55.6713442, longitude: 12.523785),
+        .init(name: "ABN AMRO", latitude: 52.3373763, longitude: 4.8723054),
         .init(name: "Brussels", latitude: 55.6713442, longitude: 12.523785, isUserLocation: true),
         .init(name: "Leiden", latitude: 55.6713442, longitude: 12.523785, isUserLocation: true)
     ]

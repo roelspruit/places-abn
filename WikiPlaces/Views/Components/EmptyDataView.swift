@@ -14,10 +14,11 @@ struct EmptyDataView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Image(systemName: "exclamationmark.triangle")
+            Image(systemName: "questionmark.app.dashed")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: 100)
+                .foregroundStyle(.secondary)
 
             Text(title)
                 .multilineTextAlignment(.center)

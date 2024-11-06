@@ -102,8 +102,10 @@ private extension PlacesListViewModel {
             return nil
         }
 
+        let sanitizedLocationName = customLocationName.trimmingCharacters(in: .whitespacesAndNewlines)
+
         let location = Location(
-            name: customLocationName.isEmpty ? nil : customLocationName,
+            name: sanitizedLocationName.isEmpty ? nil : sanitizedLocationName,
             latitude: latitude,
             longitude: longitude,
             isUserLocation: true

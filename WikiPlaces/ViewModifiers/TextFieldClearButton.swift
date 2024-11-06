@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct ClearButton: ViewModifier {
+
     @Binding var text: String
 
     func body(content: Content) -> some View {
-
         HStack {
             content
+
             if !text.isEmpty {
                 Button {
                     text = ""
-                }label: {
+                } label: {
                     Image(systemName: "multiply.circle.fill")
                         .foregroundColor(.gray)
                 }
@@ -28,6 +29,7 @@ struct ClearButton: ViewModifier {
 }
 
 extension View {
+    /// Adds a cross icon icon on the right side of the view that will clear the contents of the given text binding when tapped.
     func clearButton(text: Binding<String>) -> some View {
         modifier(ClearButton(text: text))
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FloatingErrorView: View {
 
-    var message: Binding<LocalizedStringKey?>
+    @Binding var message: LocalizedStringKey?
 
     @AccessibilityFocusState private var hasAccessibilityFocus: Bool
     @State private var floatingErrorAutoHideTimer: Timer?
@@ -17,7 +17,7 @@ struct FloatingErrorView: View {
     private let floatingErrorAutoHideInterval: TimeInterval = 8
 
     var body: some View {
-        if let floatingErrorMessage = message.wrappedValue {
+        if let floatingErrorMessage = $message.wrappedValue {
             VStack(alignment: .leading) {
                 Text(floatingErrorMessage)
                     .foregroundStyle(.white)
@@ -33,7 +33,7 @@ struct FloatingErrorView: View {
             .accessibilityFocused($hasAccessibilityFocus)
             .background(Color.accentColor)
             .onTapGesture {
-                message.wrappedValue = nil
+                $message.wrappedValue = nil
             }
         }
     }
@@ -42,7 +42,7 @@ struct FloatingErrorView: View {
         floatingErrorAutoHideTimer?.invalidate()
         floatingErrorAutoHideTimer = Timer.scheduledTimer(withTimeInterval: floatingErrorAutoHideInterval, repeats: false) { _ in
             Task { @MainActor in
-                self.message.wrappedValue = nil
+                self.$message.wrappedValue = nil
                 self.floatingErrorAutoHideTimer = nil
             }
         }
