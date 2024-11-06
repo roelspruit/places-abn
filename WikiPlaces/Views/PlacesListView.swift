@@ -68,7 +68,7 @@ struct PlacesListView: View {
             })
             .foregroundStyle(.primary)
         }
-        .foregroundStyle(Color.abnGreen)
+        .foregroundStyle(Color.accentColor)
         .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

@@ -26,7 +26,7 @@ struct FloatingErrorView: View {
             .onAppear(perform: { isFloatingErrorMessageFocussed = true})
             .onDisappear(perform: { isFloatingErrorMessageFocussed = false})
             .accessibilityFocused($isFloatingErrorMessageFocussed)
-            .background(Color.abnGreen)
+            .background(Color.accentColor)
             .onTapGesture {
                 message.wrappedValue = nil
             }
