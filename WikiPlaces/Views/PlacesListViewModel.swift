@@ -41,7 +41,7 @@ final class PlacesListViewModel {
         case loading
         case data(locations: [Location])
         case empty
-        case error(message: String)
+        case error(message: LocalizedStringKey)
     }
 
     init(locationService: LocationServiceProtocol) {
@@ -173,7 +173,7 @@ private extension PlacesListViewModel {
         }
     }
 
-    func showFullScreenError(_ message: String) {
+    func showFullScreenError(_ message: LocalizedStringKey) {
         state = .error(message: message)
     }
 

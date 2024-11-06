@@ -1,0 +1,176 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "ABN AMRO Hiring Assignment 2024.\nCode written by Roel Spruit." : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ABN AMRO Inhuur Opdracht 2024.\nCode geschreven door Roel Spruit."
+          }
+        }
+      }
+    },
+    "Add custom location" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigen locatie toevoegen"
+          }
+        }
+      }
+    },
+    "Add Location" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locatie toevoegen"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuleren"
+          }
+        }
+      }
+    },
+    "Custom location" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruikerslocatie"
+          }
+        }
+      }
+    },
+    "Error loading locations. Check your internet connection and try again" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fout tijdens het laden van locaties. Controleer je internetverbinding en probeer het opnieuw"
+          }
+        }
+      }
+    },
+    "Latitude (between -90.0 and 90.0)" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latitude (tussen -90.0 en 90.0)"
+          }
+        }
+      }
+    },
+    "Loading locations" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locaties aan het laden"
+          }
+        }
+      }
+    },
+    "Locations" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locaties"
+          }
+        }
+      }
+    },
+    "Longitude(between -180.0 and 180)" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Longitude (tussen -180.0 en 180.0)"
+          }
+        }
+      }
+    },
+    "Name (optional)" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locatienaam (optioneel)"
+          }
+        }
+      }
+    },
+    "No locations found. Do you want to add a custom location?" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen locaties gevonden. Wil je een eigen locatie toevoegen?"
+          }
+        }
+      }
+    },
+    "Open my LinkedIn Profile" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bekijk mijn LinkedIn Profiel"
+          }
+        }
+      }
+    },
+    "Opens location in Wikipedia App" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opent locatie in Wikipedia App"
+          }
+        }
+      }
+    },
+    "Retry" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opnieuw proberen"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opslaan"
+          }
+        }
+      }
+    },
+    "Some fields are incorrect. Please check that you have entered correct coordinates." : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sommige velden zijn niet correct ingevuld. Controleer de velden en zorg dat je correcte coördinaten hebt ingevoerd."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

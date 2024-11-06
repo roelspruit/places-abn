@@ -11,8 +11,7 @@ struct FloatingErrorView: View {
 
     var message: Binding<String?>
 
-    @AccessibilityFocusState
-    private var isFloatingErrorMessageFocussed: Bool
+    @AccessibilityFocusState private var hasAccessibilityFocus: Bool
 
     var body: some View {
         if let floatingErrorMessage = message.wrappedValue {
@@ -23,9 +22,9 @@ struct FloatingErrorView: View {
                     .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity)
-            .onAppear(perform: { isFloatingErrorMessageFocussed = true})
-            .onDisappear(perform: { isFloatingErrorMessageFocussed = false})
-            .accessibilityFocused($isFloatingErrorMessageFocussed)
+            .onAppear(perform: { hasAccessibilityFocus = true})
+            .onDisappear(perform: { hasAccessibilityFocus = false})
+            .accessibilityFocused($hasAccessibilityFocus)
             .background(Color.accentColor)
             .onTapGesture {
                 message.wrappedValue = nil

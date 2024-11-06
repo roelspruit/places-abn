@@ -64,6 +64,15 @@ struct PlacesListView: View {
                     Label(location.displayName, systemImage: location.isUserLocation ? "person" : "globe")
                     Spacer()
                     Image(systemName: "chevron.right")
+                        .foregroundStyle(.secondary)
+                }
+                .accessibilityElement(children: .ignore)
+            })
+            .accessibilityHint("Opens location in Wikipedia App")
+            .accessibilityLabel(content: { _ in
+                Text(location.displayName)
+                if location.isUserLocation {
+                    Text("Custom location")
                 }
             })
             .foregroundStyle(.primary)
@@ -82,12 +91,18 @@ struct PlacesListView: View {
         .overlay(
             alignment: .bottom,
             content: {
-                Text("ABN AMRO Hiring Assignment 2024.\nCode by Roel Spruit.")
-                    .padding(.horizontal, 50)
-                    .font(.caption)
-                    .italic()
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
+                VStack(spacing: 20) {
+                    Text("ABN AMRO Hiring Assignment 2024.\nCode written by Roel Spruit.")
+                        .padding(.horizontal, 50)
+                        .font(.caption)
+                        .italic()
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+
+                    Button("Open my LinkedIn Profile") {
+                        openURL(URL(string: "https://www.linkedin.com/in/roelspruit/")!)
+                    }
+                }
             })
     }
 

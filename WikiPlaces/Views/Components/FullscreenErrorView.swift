@@ -9,8 +9,8 @@ import SwiftUI
 
 struct FullscreenErrorView: View {
 
-    let title: String
-    let buttonTitle: String
+    let title: LocalizedStringKey
+    let buttonTitle: LocalizedStringKey
     let buttonAction: () -> Void
 
     var body: some View {
