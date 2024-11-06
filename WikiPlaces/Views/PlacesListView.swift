@@ -39,12 +39,12 @@ struct PlacesListView: View {
         }
         .overlay(
             alignment: .bottom,
-            content: { FloatingErrorMessageView(message: $viewModel.floatingErrorMessage) }
+            content: { FloatingErrorView(message: $viewModel.floatingErrorMessage) }
         )
         .sheet(
             isPresented: $viewModel.showAddCustomLocationSheet,
             onDismiss: viewModel.onCustomLocationSheetDismiss,
-            content: addCustomLocationSheet
+            content: customLocationForm
         )
         .animation(.easeInOut, value: viewModel.floatingErrorMessage)
         .animation(.easeInOut, value: viewModel.showAddCustomLocationSheet)
@@ -91,7 +91,7 @@ struct PlacesListView: View {
             })
     }
 
-    private func addCustomLocationSheet() -> some View {
+    private func customLocationForm() -> some View {
         NavigationStack {
             AddLocationForm(
                 locationName: $viewModel.customLocationName,
@@ -111,19 +111,6 @@ struct PlacesListView: View {
             viewModel: .init(
                 locationService: LocationServiceMock(getLocationsStub: {
                     return Location.examples
-                })
-            )
-        )
-    }
-}
-
-#Preview("Loading") {
-    NavigationStack {
-        PlacesListView(
-            viewModel: .init(
-                locationService: LocationServiceMock(getLocationsStub: {
-                    while true { }
-                    return []
                 })
             )
         )
@@ -159,7 +146,7 @@ struct PlacesListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PlacesListViewModel(
             locationService: LocationServiceMock(getLocationsStub: {
-                throw LocationService.ServiceError.incorrectURLConfiguration
+                return Location.examples
             })
         )
         viewModel.showAddCustomLocationSheet = true

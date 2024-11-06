@@ -1,5 +1,5 @@
 //
-//  FloatingErrorMessageView.swift
+//  FloatingErrorView.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 05/11/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FloatingErrorMessageView: View {
+struct FloatingErrorView: View {
 
     var message: Binding<String?>
 
@@ -36,9 +36,9 @@ struct FloatingErrorMessageView: View {
 
 #Preview {
     ZStack {
-        Color.white.ignoresSafeArea()
+        Color.clear.ignoresSafeArea()
             .overlay(alignment: .bottom) {
-                FloatingErrorMessageView(message: .constant("Something went wrong"))
+                FloatingErrorView(message: .constant("Something went wrong"))
             }
     }
 }
