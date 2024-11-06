@@ -11,7 +11,7 @@ final class LocationServiceMock: LocationServiceProtocol {
     private let getLocationsStub: @Sendable () async throws -> [Location]
 
     init(
-        getLocationsStub: @Sendable  @escaping () async throws -> [Location] = { [] }
+        getLocationsStub: @Sendable  @escaping () async throws -> [Location] = { Location.examples }
     ) {
         self.getLocationsStub = getLocationsStub
     }

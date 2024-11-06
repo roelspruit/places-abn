@@ -15,89 +15,69 @@ import SwiftUICore
 
     @Test("Location service should be called when view appears")
     func dataShouldLoadOnAppear() async throws {
-        await confirmation { confirmation in
-            let locationService = LocationServiceMock(getLocationsStub: {
-                confirmation.confirm()
-                return Location.examples
-            })
+        let locationService = LocationServiceMock()
+        let sut = PlacesListViewModel(locationService: locationService)
 
-            let sut = PlacesListViewModel(locationService: locationService)
+        await sut.onTask()
 
-            await sut.onTask()
-
-            #expect(sut.data == Location.examples)
-        }
+        #expect(sut.data == Location.examples)
     }
 
     @Test("Location service should be called when tapping retry button")
     func dataShouldLoadOnRetry() async throws {
-        await confirmation { confirmation in
-            let locationService = LocationServiceMock(getLocationsStub: {
-                confirmation.confirm()
-                return Location.examples
-            })
+        let locationService = LocationServiceMock()
+        let sut = PlacesListViewModel(locationService: locationService)
 
-            let sut = PlacesListViewModel(locationService: locationService)
+        await sut.onRetryTap()
 
-            await sut.onRetryTap()
-
-            #expect(sut.data == Location.examples)
-        }
+        #expect(sut.data == Location.examples)
     }
 
     // MARK: - Location Opening
 
     @Test("Tapping a location should open the wikipedia app")
     func locationTapShouldOpenWikipediaURL() async throws {
-        await confirmation { confirmation in
-            let location = Location.examples.first!
-            let sut = PlacesListViewModel(locationService: LocationServiceMock())
-            var openedURL: URL?
-            let urlAction = OpenURLAction { url in
-                openedURL = url
-                confirmation.confirm()
-                return .handled
-            }
-
-            sut.onLocationTap(location, openURLAction: urlAction)
-
-            #expect(sut.floatingErrorMessage == nil)
-            #expect(openedURL?.absoluteString == "wikipedia://places/?WMFCoordinate=52.3547498,4.8339215")
+        let location = Location.examples.first!
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        var openedURL: URL?
+        let urlAction = OpenURLAction { url in
+            openedURL = url
+            return .handled
         }
+
+        sut.onLocationTap(location, openURLAction: urlAction)
+
+        #expect(sut.floatingErrorMessage == nil)
+        #expect(openedURL?.absoluteString == "wikipedia://places/?WMFCoordinate=52.3547498,4.8339215")
+
     }
 
     @Test("Tapping location with incorrect coordinates should show an error")
     func incorrectLocationShouldShowError() async throws {
-        await confirmation(expectedCount: 0) { confirmation in
-            // Location with invalid GPS coordinates
-            let location = Location(name: nil, latitude: -100, longitude: 200)
+        // Location with invalid GPS coordinates
+        let location = Location(name: nil, latitude: -100, longitude: 200)
 
-            let sut = PlacesListViewModel(locationService: LocationServiceMock())
-            let urlAction = OpenURLAction { url in
-                confirmation.confirm()
-                return .handled
-            }
-
-            sut.onLocationTap(location, openURLAction: urlAction)
-
-            #expect(sut.floatingErrorMessage == "The location cannot opened. The location seems to have incorrect coordinates.")
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        let urlAction = OpenURLAction { url in
+            return .handled
         }
+
+        sut.onLocationTap(location, openURLAction: urlAction)
+
+        #expect(sut.floatingErrorMessage == "The location cannot opened. The location seems to have incorrect coordinates.")
     }
 
     @Test("Failure to open wikipedia app should show an error")
     func failingURLActionShouldShowError() async throws {
-        await confirmation { confirmation in
-            let location = Location.examples.first!
-            let sut = PlacesListViewModel(locationService: LocationServiceMock())
-            let urlAction = OpenURLAction { url in
-                confirmation.confirm()
-                return .discarded
-            }
-
-            sut.onLocationTap(location, openURLAction: urlAction)
-
-            #expect(sut.floatingErrorMessage == "The location cannot be opened. Make sure you have the Wikipedia app installed.")
+        let location = Location.examples.first!
+        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        let urlAction = OpenURLAction { url in
+            return .discarded
         }
+
+        sut.onLocationTap(location, openURLAction: urlAction)
+
+        #expect(sut.floatingErrorMessage == "The location cannot be opened. Make sure you have the Wikipedia app installed.")
     }
 
     // MARK: - Custom Location

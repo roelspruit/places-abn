@@ -109,9 +109,7 @@ struct PlacesListView: View {
     NavigationStack {
         PlacesListView(
             viewModel: .init(
-                locationService: LocationServiceMock(getLocationsStub: {
-                    return Location.examples
-                })
+                locationService: LocationServiceMock()
             )
         )
     }
@@ -145,9 +143,7 @@ struct PlacesListView: View {
 struct PlacesListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PlacesListViewModel(
-            locationService: LocationServiceMock(getLocationsStub: {
-                return Location.examples
-            })
+            locationService: LocationServiceMock()
         )
         viewModel.showAddCustomLocationSheet = true
         return NavigationStack {
