@@ -11,7 +11,7 @@ import CoreLocation
 final class PlacesListViewModel {
 
     var state: State = .loading
-    var floatingErrorMessage: String?
+    var floatingErrorMessage: LocalizedStringKey?
 
     // Convenience property to get data from state in unit tests
     var data: [Location] {
@@ -31,8 +31,6 @@ final class PlacesListViewModel {
     }
 
     private let locationService: LocationServiceProtocol
-    private let floatingErrorAutoHideInterval: TimeInterval = 5
-    private var floatingErrorAutoHideTimer: Timer?
 
     private var remoteLocations = [Location]()
     private var customLocations = [Location]()
@@ -160,17 +158,8 @@ private extension PlacesListViewModel {
         return URL(string: "wikipedia://places/?WMFCoordinate=\(location.latitude),\(location.longitude)")
     }
 
-    func showFloatingError(_ message: String) {
-
-        floatingErrorAutoHideTimer?.invalidate()
-
+    func showFloatingError(_ message: LocalizedStringKey) {
         floatingErrorMessage = message
-        floatingErrorAutoHideTimer = Timer.scheduledTimer(withTimeInterval: floatingErrorAutoHideInterval, repeats: false) { [weak self] _ in
-            Task { @MainActor in
-                self?.floatingErrorMessage = nil
-                self?.floatingErrorAutoHideTimer = nil
-            }
-        }
     }
 
     func showFullScreenError(_ message: LocalizedStringKey) {
