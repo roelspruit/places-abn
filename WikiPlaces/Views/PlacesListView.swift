@@ -77,6 +77,7 @@ struct PlacesListView: View {
             })
             .foregroundStyle(.primary)
         }
+        .accessibilitySortPriority(2)
         .foregroundStyle(Color.accentColor)
         .listStyle(.plain)
         .toolbar {
@@ -103,6 +104,7 @@ struct PlacesListView: View {
                         openURL(URL(string: "https://www.linkedin.com/in/roelspruit/")!)
                     }
                 }
+                .accessibilitySortPriority(1)
             })
     }
 
