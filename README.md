@@ -42,7 +42,7 @@ This is a list I used as an improvised kanban board to keep track of my progress
 - [x] Write down notable choices in readme file
 - [x] Clean up design
 - Assignment feedback
-    - [ ] Perform complete concurrency check and fix warnings
+    - [x] Perform complete concurrency check and fix warnings
     - [x] Separate View into components
     - [ ] Extra accessibility check
     - [ ] 
