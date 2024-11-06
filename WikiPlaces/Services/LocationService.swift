@@ -12,7 +12,7 @@ protocol LocationServiceProtocol: Sendable {
 }
 
 /// Executes network calls to retrieve location data from a remote JSON file
-final class LocationService: LocationServiceProtocol {
+actor LocationService: LocationServiceProtocol {
 
     private let dataRequestService: DataRequestServiceProtocol
     private let appConfigurationRepository: AppConfigurationRepositoryProtocol

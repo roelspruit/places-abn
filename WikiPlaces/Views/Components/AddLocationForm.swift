@@ -9,26 +9,27 @@ import SwiftUI
 
 struct AddLocationForm: View {
 
-    var locationName: Binding<String>
-    var latitude: Binding<String>
-    var longitude: Binding<String>
-    var fieldValidator: () -> Bool
-    var onSaveCustomLocationTap: () -> Void
-    var onCancelAddingCustomLocationTap: () -> Void
+    @Binding var locationName: String
+    @Binding var latitude: String
+    @Binding var longitude: String
+
+    let fieldValidator: () -> Bool
+    let onSaveCustomLocationTap: () -> Void
+    let onCancelAddingCustomLocationTap: () -> Void
 
     var body: some View {
         Form {
             Section(content: {
-                TextField("Location Name (optional)", text: locationName)
-                    .clearButton(text: locationName)
-                TextField("Latitude (between -90.0 and 90.0)", text: latitude, axis: .vertical)
+                TextField("Location Name (optional)", text: $locationName)
+                    .clearButton(text: $locationName)
+                TextField("Latitude (between -90.0 and 90.0)", text: $latitude, axis: .vertical)
                     .accessibilityHint("Value should be between -90.0 and 90.0")
                     .keyboardType(.decimalPad)
-                    .clearButton(text: latitude)
-                TextField("Longitude (between -180.0 and 180)", text: longitude, axis: .vertical)
+                    .clearButton(text: $latitude)
+                TextField("Longitude (between -180.0 and 180)", text: $longitude, axis: .vertical)
                     .accessibilityHint("Value should be between -180.0 and 180.0")
                     .keyboardType(.decimalPad)
-                    .clearButton(text: longitude)
+                    .clearButton(text: $longitude)
             }, footer: {
                 if hasEnteredLocationFields && !fieldValidator() {
                     Text("Some fields are incorrect. Please check that you have entered correct coordinates.")
@@ -57,7 +58,7 @@ struct AddLocationForm: View {
     }
 
     private var hasEnteredLocationFields: Bool {
-        return !latitude.wrappedValue.isEmpty && !longitude.wrappedValue.isEmpty
+        return !$latitude.wrappedValue.isEmpty && !$longitude.wrappedValue.isEmpty
     }
 }
 

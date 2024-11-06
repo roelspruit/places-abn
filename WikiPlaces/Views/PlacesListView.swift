@@ -24,7 +24,7 @@ struct PlacesListView: View {
                     buttonAction: viewModel.onAddCustomLocationTap
                 )
             case .data(let locations):
-                locationListView(locations)
+                locationGridView(locations)
             case .error(let message):
                 FullscreenErrorView(
                     title: message,
@@ -55,31 +55,22 @@ struct PlacesListView: View {
         }
     }
 
-    private func locationListView(_ locations: [Location]) -> some View {
-        List(locations) { location in
-            Button(action: {
-                viewModel.onLocationTap(location, openURLAction: openURL)
-            }, label: {
-                HStack {
-                    Label(location.displayName, systemImage: location.isUserLocation ? "person" : "globe")
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.secondary)
+    private func locationGridView(_ locations: [Location]) -> some View {
+        VStack(spacing: 0) {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 250))], spacing: 20) {
+                    ForEach(locations) { location in
+                        LocationCardView(
+                            location: location,
+                            onLocationTap: viewModel.onLocationTap
+                        )
+                    }
                 }
-                .accessibilityElement(children: .ignore)
-            })
-            .accessibilityHint("Opens location in Wikipedia App")
-            .accessibilityLabel(content: { _ in
-                Text(location.displayName)
-                if location.isUserLocation {
-                    Text("Custom location")
-                }
-            })
-            .foregroundStyle(.primary)
+                .padding()
+            }
+
+            footer()
         }
-        .accessibilitySortPriority(2)
-        .foregroundStyle(Color.accentColor)
-        .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Add Location", systemImage: "plus") {
@@ -89,23 +80,6 @@ struct PlacesListView: View {
                 }
             }
         }
-        .overlay(
-            alignment: .bottom,
-            content: {
-                VStack(spacing: 20) {
-                    Text("ABN AMRO Hiring Assignment 2024.\nCode written by Roel Spruit.")
-                        .padding(.horizontal, 50)
-                        .font(.caption)
-                        .italic()
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-
-                    Button("Open my LinkedIn Profile") {
-                        openURL(URL(string: "https://www.linkedin.com/in/roelspruit/")!)
-                    }
-                }
-                .accessibilitySortPriority(1)
-            })
     }
 
     private func customLocationForm() -> some View {
@@ -119,6 +93,24 @@ struct PlacesListView: View {
                 onCancelAddingCustomLocationTap: viewModel.onCancelAddingCustomLocationTap)
         }
         .presentationDetents([.height(250)])
+    }
+
+    private func footer() -> some View {
+        VStack(spacing: 15) {
+            Divider()
+
+            Text("ABN AMRO Hiring Assignment 2024.\nCode written by Roel Spruit.")
+                .font(.caption)
+                .italic()
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+
+            Button("Open my LinkedIn Profile") {
+                openURL(URL(string: "https://www.linkedin.com/in/roelspruit/")!)
+            }
+        }
+        .accessibilityHidden(true)
+        .background(Color.cardBackground.shadow(.drop(color: .black.opacity(0.1), radius: 3)))
     }
 }
 

@@ -19,6 +19,7 @@ struct FullscreenErrorView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: 100)
+                .foregroundStyle(.secondary)
 
             Text(title)
                 .multilineTextAlignment(.center)
