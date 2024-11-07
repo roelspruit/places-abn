@@ -37,7 +37,7 @@ struct LocationCardView: View {
             }
             .accessibilityElement(children: .ignore)
         })
-        .buttonStyle(PresDownCardButtonStyle())
+        .buttonStyle(PressDownCardButtonStyle())
         .transition(.opacity)
         .accessibilityHint("Opens location in Wikipedia App")
         .accessibilityLabel(content: { _ in
@@ -56,19 +56,6 @@ struct LocationCardView: View {
                 span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
             )
         )
-    }
-}
-
-struct PresDownCardButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .foregroundStyle(Color.accentColor)
-            .background(Color.cardBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .shadow(color: .black.opacity(0.1), radius: configuration.isPressed ? 2 : 5, x: configuration.isPressed ? 0 : 5, y: configuration.isPressed ? 0 : 5)
-            .scaleEffect(configuration.isPressed ? 0.95 : 1)
-            .foregroundStyle(.primary)
-            .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
     }
 }
 
