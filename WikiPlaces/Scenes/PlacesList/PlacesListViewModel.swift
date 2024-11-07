@@ -12,6 +12,8 @@ final class PlacesListViewModel {
 
     var state: State = .loading
     var floatingErrorMessage: LocalizedStringKey?
+    var errorSensoryFeedbackTrigger = false
+    var successSensoryFeedbackTrigger = false
 
     // Convenience property to get data from state in unit tests
     var data: [Location] {
@@ -62,6 +64,10 @@ extension PlacesListViewModel {
 
     func onSaveCustomLocationTap(_ newLocation: Location?) {
 
+        defer {
+            showAddCustomLocationSheet = false
+        }
+
         guard let location = newLocation else {
             // Field validation is done before the user has the option of even saving a location. No error handling is needed here
             return
@@ -70,12 +76,6 @@ extension PlacesListViewModel {
         customLocations.append(location)
 
         updateDataState()
-
-        showAddCustomLocationSheet = false
-    }
-
-    func onCancelAddingCustomLocationTap() {
-        showAddCustomLocationSheet = false
     }
 }
 
@@ -111,9 +111,11 @@ private extension PlacesListViewModel {
 
         openURLAction.callAsFunction(url) { [weak self] accepted in
             guard accepted else {
+                self?.errorSensoryFeedbackTrigger.toggle()
                 self?.showFloatingError("The location cannot be opened. Make sure you have the Wikipedia app installed.")
                 return
             }
+            self?.successSensoryFeedbackTrigger.toggle()
         }
     }
 

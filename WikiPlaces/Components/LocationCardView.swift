@@ -15,12 +15,9 @@ struct LocationCardView: View {
     let location: Location
     let onLocationTap: (Location, OpenURLAction) -> Void
 
-    private let impactGenerator = UIImpactFeedbackGenerator(style: .light)
-
     var body: some View {
         Button(action: {
             onLocationTap(location, openURL)
-            impactGenerator.impactOccurred()
         }, label: {
             VStack {
                 Map(

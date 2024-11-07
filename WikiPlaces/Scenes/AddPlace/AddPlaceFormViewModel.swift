@@ -14,12 +14,21 @@ final class AddPlaceFormViewModel {
 
     private let onSaveLocation: (Location?) -> Void
 
-    var hasEnteredLocationFields: Bool {
-        return !latitude.isEmpty && !longitude.isEmpty
+    var inputErrorIsShown: Bool {
+        (!latitude.isEmpty && latitude.doubleValue?.isValidLatitude == false)
+        || (!longitude.isEmpty && longitude.doubleValue?.isValidLongitude == false)
     }
 
-    var customLocationIsValid: Bool {
+    var saveButtonIsEnabled: Bool {
         locationFromFields != nil
+    }
+
+    init(onSaveLocation: @escaping (Location?) -> Void) {
+        self.onSaveLocation = onSaveLocation
+    }
+
+    func onSave() {
+        onSaveLocation(locationFromFields)
     }
 
     var locationFromFields: Location? {
@@ -43,13 +52,5 @@ final class AddPlaceFormViewModel {
         }
 
         return location
-    }
-
-    init(onSaveLocation: @escaping (Location?) -> Void) {
-        self.onSaveLocation = onSaveLocation
-    }
-
-    func onSave() {
-        onSaveLocation(locationFromFields)
     }
 }

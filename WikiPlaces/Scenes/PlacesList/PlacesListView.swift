@@ -49,7 +49,7 @@ struct PlacesListView: View {
                         onSaveLocation: viewModel.onSaveCustomLocationTap
                     ))
                 }
-                .presentationDetents([.height(250)])
+                .presentationDetents([.medium])
             }
         )
         .animation(.easeInOut, value: viewModel.floatingErrorMessage)
@@ -77,6 +77,8 @@ struct PlacesListView: View {
 
             footerView
         }
+        .sensoryFeedback(.error, trigger: viewModel.errorSensoryFeedbackTrigger)
+        .sensoryFeedback(.success, trigger: viewModel.successSensoryFeedbackTrigger)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Add Location", systemImage: "plus") {
@@ -89,19 +91,24 @@ struct PlacesListView: View {
     }
 
     private var footerView: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 5) {
             Divider()
 
-            Text("ABN AMRO Hiring Assignment 2024.\nCode written by Roel Spruit.")
+            Text("ABN AMRO Hiring Assignment 2024 by Roel Spruit.")
                 .font(.caption)
                 .italic()
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
+                .padding(.top, 5)
 
-            Button("Open my LinkedIn Profile") {
+            Button {
                 openURL(URL(string: "https://www.linkedin.com/in/roelspruit/")!)
+            } label: {
+                Text("Open my LinkedIn Profile")
+                    .font(.caption)
             }
         }
+
         .accessibilityHidden(true)
         .background(Color.cardBackground.shadow(.drop(color: .black.opacity(0.1), radius: 3)))
     }

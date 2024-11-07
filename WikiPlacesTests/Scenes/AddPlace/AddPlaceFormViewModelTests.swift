@@ -25,7 +25,7 @@ import SwiftUICore
         sut.latitude = latitude
         sut.longitude = longitude
 
-        #expect(!sut.customLocationIsValid)
+        #expect(!sut.saveButtonIsEnabled)
     }
 
     @Test("Valid fields for custom locations", arguments: [
@@ -41,7 +41,34 @@ import SwiftUICore
         sut.latitude = latitude
         sut.longitude = longitude
 
-        #expect(sut.customLocationIsValid)
+        #expect(sut.saveButtonIsEnabled)
+    }
+
+    @Test("Input error shown at correct time", arguments: [
+        ("Latitude too high", "200", ""),
+        ("Longitude too high", "", "200"),
+        ("Latitude and Longitude too high", "200", "200")
+    ])
+    func inputErrorShown(name: String, latitude: String, longitude: String) {
+        let sut = AddPlaceFormViewModel(onSaveLocation: { _ in })
+        sut.locationName = name
+        sut.latitude = latitude
+        sut.longitude = longitude
+
+        #expect(sut.inputErrorIsShown)
+    }
+
+    @Test("Input error not shown for correct fields", arguments: [
+        ("Not shown for empty fields", "", ""),
+        ("Valid fields", "50", "50")
+    ])
+    func inputErrorNotShown(name: String, latitude: String, longitude: String) {
+        let sut = AddPlaceFormViewModel(onSaveLocation: { _ in })
+        sut.locationName = name
+        sut.latitude = latitude
+        sut.longitude = longitude
+
+        #expect(!sut.inputErrorIsShown)
     }
 
     @Test("Saving location should return location")

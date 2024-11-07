@@ -91,12 +91,11 @@ import SwiftUICore
         #expect(sut.showAddCustomLocationSheet)
     }
 
-    @Test("Cancel custom location sheet")
+    @Test("Save custom location sheet should hide sheet")
     func cancelAddCustomLocationShouldHideSheet() async throws {
         let sut = PlacesListViewModel(locationService: LocationServiceMock())
 
-        sut.onAddCustomLocationTap()
-        sut.onCancelAddingCustomLocationTap()
+        sut.onSaveCustomLocationTap(.examples.first!)
 
         #expect(sut.showAddCustomLocationSheet == false)
     }
