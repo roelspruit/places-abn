@@ -41,6 +41,16 @@
         }
       }
     },
+    "Clear field" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veld leegmaken"
+          }
+        }
+      }
+    },
     "Custom location" : {
       "localizations" : {
         "nl" : {
@@ -187,6 +197,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "De locatie kan niet worden geopend omdat deze incorrecte coördinaten bevat."
+          }
+        }
+      }
+    },
+    "Unknown location with GPS coordinates" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onbekende locatie met GPS coördinaten"
           }
         }
       }

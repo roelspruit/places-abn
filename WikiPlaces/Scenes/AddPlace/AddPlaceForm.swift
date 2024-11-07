@@ -18,10 +18,12 @@ struct AddPlaceForm: View {
             Section(content: {
                 TextField("Location Name (optional)", text: $viewModel.locationName)
                     .clearButton(text: $viewModel.locationName)
+
                 TextField("Latitude (between -90.0 and 90.0)", text: $viewModel.latitude, axis: .vertical)
                     .accessibilityHint("Value should be between -90.0 and 90.0")
                     .keyboardType(.decimalPad)
                     .clearButton(text: $viewModel.latitude)
+
                 TextField("Longitude (between -180.0 and 180)", text: $viewModel.longitude, axis: .vertical)
                     .accessibilityHint("Value should be between -180.0 and 180.0")
                     .keyboardType(.decimalPad)

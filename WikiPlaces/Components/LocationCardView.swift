@@ -15,9 +15,12 @@ struct LocationCardView: View {
     let location: Location
     let onLocationTap: (Location, OpenURLAction) -> Void
 
+    private let impactGenerator = UIImpactFeedbackGenerator(style: .light)
+
     var body: some View {
         Button(action: {
             onLocationTap(location, openURL)
+            impactGenerator.impactOccurred()
         }, label: {
             VStack {
                 Map(
@@ -41,7 +44,12 @@ struct LocationCardView: View {
         .transition(.opacity)
         .accessibilityHint("Opens location in Wikipedia App")
         .accessibilityLabel(content: { _ in
-            Text(location.displayName)
+            if location.name != nil {
+                Text(location.displayName)
+            } else {
+                Text("Unknown location with GPS coordinates")
+            }
+
             if location.isUserLocation {
                 Text("Custom location")
             }

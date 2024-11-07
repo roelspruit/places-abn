@@ -14,15 +14,18 @@ struct ClearButton: ViewModifier {
     func body(content: Content) -> some View {
         HStack {
             content
+                .accessibilitySortPriority(2)
 
             if !text.isEmpty {
                 Button {
                     text = ""
                 } label: {
                     Image(systemName: "multiply.circle.fill")
+                        .accessibilityLabel("Clear field")
                         .foregroundColor(.gray)
                 }
                 .padding(.trailing, 10)
+                .accessibilitySortPriority(1)
             }
         }
     }
