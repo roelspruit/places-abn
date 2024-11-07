@@ -22,13 +22,6 @@ final class PlacesListViewModel {
     }
 
     var showAddCustomLocationSheet = false
-    var customLocationName: String = ""
-    var customLocationLatitude: String = ""
-    var customLocationLongitude: String = ""
-
-    var customLocationIsValid: Bool {
-        locationFromCustomLocationFields != nil
-    }
 
     private let locationService: LocationServiceProtocol
 
@@ -67,9 +60,9 @@ extension PlacesListViewModel {
         showAddCustomLocationSheet = true
     }
 
-    func onSaveCustomLocationTap() {
+    func onSaveCustomLocationTap(_ newLocation: Location?) {
 
-        guard let location = locationFromCustomLocationFields else {
+        guard let location = newLocation else {
             // Field validation is done before the user has the option of even saving a location. No error handling is needed here
             return
         }
@@ -78,45 +71,17 @@ extension PlacesListViewModel {
 
         updateDataState()
 
-        clearCustomLocationData()
         showAddCustomLocationSheet = false
     }
 
     func onCancelAddingCustomLocationTap() {
         showAddCustomLocationSheet = false
     }
-
-    func onCustomLocationSheetDismiss() {
-        clearCustomLocationData()
-    }
 }
 
 // MARK: - Private functions and properties
 
 private extension PlacesListViewModel {
-
-    var locationFromCustomLocationFields: Location? {
-        // Slightly hacky: the `decimalPad` keyboard type uses comma as a separator, the Double type requires a dot separator
-        guard let latitude = customLocationLatitude.doubleValue,
-              let longitude = customLocationLongitude.doubleValue else {
-            return nil
-        }
-
-        let sanitizedLocationName = customLocationName.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        let location = Location(
-            name: sanitizedLocationName.isEmpty ? nil : sanitizedLocationName,
-            latitude: latitude,
-            longitude: longitude,
-            isUserLocation: true
-        )
-
-        guard location.hasValidCoordinate else {
-            return nil
-        }
-
-        return location
-    }
 
     func getLocations() async {
         state = .loading
@@ -166,21 +131,5 @@ private extension PlacesListViewModel {
 
     func showFullScreenError(_ message: LocalizedStringKey) {
         state = .error(message: message)
-    }
-
-    func clearCustomLocationData() {
-        customLocationName = ""
-        customLocationLatitude = ""
-        customLocationLongitude = ""
-    }
-}
-
-private extension String {
-    var doubleValue: Double? {
-        let sanitizedString = self
-            .replacingOccurrences(of: ",", with: ".")
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-
-        return Double(sanitizedString)
     }
 }

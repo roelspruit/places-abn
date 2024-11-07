@@ -43,8 +43,14 @@ struct PlacesListView: View {
         )
         .sheet(
             isPresented: $viewModel.showAddCustomLocationSheet,
-            onDismiss: viewModel.onCustomLocationSheetDismiss,
-            content: customLocationForm
+            content: {
+                NavigationStack {
+                    AddPlaceForm(viewModel: AddPlaceFormViewModel(
+                        onSaveLocation: viewModel.onSaveCustomLocationTap
+                    ))
+                }
+                .presentationDetents([.height(250)])
+            }
         )
         .animation(.easeInOut, value: viewModel.floatingErrorMessage)
         .animation(.easeInOut, value: viewModel.showAddCustomLocationSheet)
@@ -69,7 +75,7 @@ struct PlacesListView: View {
                 .padding()
             }
 
-            footer()
+            footerView
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -82,20 +88,7 @@ struct PlacesListView: View {
         }
     }
 
-    private func customLocationForm() -> some View {
-        NavigationStack {
-            AddLocationForm(
-                locationName: $viewModel.customLocationName,
-                latitude: $viewModel.customLocationLatitude,
-                longitude: $viewModel.customLocationLongitude,
-                fieldValidator: { viewModel.customLocationIsValid },
-                onSaveCustomLocationTap: viewModel.onSaveCustomLocationTap,
-                onCancelAddingCustomLocationTap: viewModel.onCancelAddingCustomLocationTap)
-        }
-        .presentationDetents([.height(250)])
-    }
-
-    private func footer() -> some View {
+    private var footerView: some View {
         VStack(spacing: 15) {
             Divider()
 
