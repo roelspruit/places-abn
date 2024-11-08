@@ -53,6 +53,7 @@ struct FloatingErrorView: View {
         withAnimation {
             $message.wrappedValue = nil
         }
+        floatingErrorAutoHideTimer?.invalidate()
         floatingErrorAutoHideTimer = nil
     }
 }
