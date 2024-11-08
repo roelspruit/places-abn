@@ -84,7 +84,7 @@ import SwiftUICore
         sut.onSave()
 
         try #require(savedLocation != nil)
-        #expect(savedLocation?.displayName == "Some Location Name")
+        #expect(savedLocation?.name == "Some Location Name")
         #expect(savedLocation?.latitude == 90)
         #expect(savedLocation?.longitude == 180)
     }

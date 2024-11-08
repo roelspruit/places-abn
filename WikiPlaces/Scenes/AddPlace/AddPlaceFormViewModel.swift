@@ -5,6 +5,7 @@
 //  Created by Roel Spruit on 07/11/2024.
 //
 import SwiftUI
+import CoreLocation
 
 @Observable
 final class AddPlaceFormViewModel {
@@ -31,6 +32,10 @@ final class AddPlaceFormViewModel {
         onSaveLocation(locationFromFields)
     }
 
+}
+
+private extension AddPlaceFormViewModel {
+
     var locationFromFields: Location? {
         // Slightly hacky: the `decimalPad` keyboard type uses comma as a separator, the Double type requires a dot separator
         guard let latitude = latitude.doubleValue,
@@ -47,7 +52,7 @@ final class AddPlaceFormViewModel {
             isUserLocation: true
         )
 
-        guard location.hasValidCoordinate else {
+        guard CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude).coordinatesAreValid else {
             return nil
         }
 

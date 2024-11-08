@@ -20,7 +20,7 @@ import SwiftUICore
 
         await sut.onTask()
 
-        #expect(sut.data == Location.examples)
+        #expect(sut.data == Location.examples.map(PlaceViewModel.init))
     }
 
     @Test("Location service should be called when tapping retry button")
@@ -30,14 +30,14 @@ import SwiftUICore
 
         await sut.onRetryTap()
 
-        #expect(sut.data == Location.examples)
+        #expect(sut.data == Location.examples.map(PlaceViewModel.init))
     }
 
     // MARK: - Location Opening
 
     @Test("Tapping a location should open the wikipedia app")
     func locationTapShouldOpenWikipediaURL() async throws {
-        let location = Location.examples.first!
+        let place = PlaceViewModel(location: Location.examples.first!)
         let sut = PlacesListViewModel(locationService: LocationServiceMock())
         var openedURL: URL?
         let urlAction = OpenURLAction { url in
@@ -45,7 +45,7 @@ import SwiftUICore
             return .handled
         }
 
-        sut.onLocationTap(location, openURLAction: urlAction)
+        sut.onPlaceTap(place, openURLAction: urlAction)
 
         #expect(sut.floatingErrorMessage == nil)
         #expect(openedURL?.absoluteString == "wikipedia://places/?WMFCoordinate=52.3547498,4.8339215")
@@ -55,27 +55,26 @@ import SwiftUICore
     @Test("Tapping location with incorrect coordinates should show an error")
     func incorrectLocationShouldShowError() async throws {
         // Location with invalid GPS coordinates
-        let location = Location(name: nil, latitude: -100, longitude: 200)
-
+        let place = PlaceViewModel(location: Location(name: nil, latitude: -100, longitude: 200))
         let sut = PlacesListViewModel(locationService: LocationServiceMock())
         let urlAction = OpenURLAction { url in
             return .handled
         }
 
-        sut.onLocationTap(location, openURLAction: urlAction)
+        sut.onPlaceTap(place, openURLAction: urlAction)
 
         #expect(sut.floatingErrorMessage == "The location cannot opened. The location seems to have incorrect coordinates.")
     }
 
     @Test("Failure to open wikipedia app should show an error")
     func failingURLActionShouldShowError() async throws {
-        let location = Location.examples.first!
+        let place = PlaceViewModel(location: Location.examples.first!)
         let sut = PlacesListViewModel(locationService: LocationServiceMock())
         let urlAction = OpenURLAction { url in
             return .discarded
         }
 
-        sut.onLocationTap(location, openURLAction: urlAction)
+        sut.onPlaceTap(place, openURLAction: urlAction)
 
         #expect(sut.floatingErrorMessage == "The location cannot be opened. Make sure you have the Wikipedia app installed.")
     }

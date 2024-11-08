@@ -16,7 +16,7 @@ final class PlacesListViewModel {
     var successSensoryFeedbackTrigger = false
 
     // Convenience property to get data from state in unit tests
-    var data: [Location] {
+    var data: [PlaceViewModel] {
         guard case .data(let locations) = state else {
             return []
         }
@@ -32,7 +32,7 @@ final class PlacesListViewModel {
 
     enum State {
         case loading
-        case data(locations: [Location])
+        case data(locations: [PlaceViewModel])
         case empty
         case error(message: LocalizedStringKey)
     }
@@ -54,8 +54,8 @@ extension PlacesListViewModel {
         await getLocations()
     }
 
-    func onLocationTap(_ location: Location, openURLAction: OpenURLAction) {
-        openLocation(location, openURLAction: openURLAction)
+    func onPlaceTap(_ place: PlaceViewModel, openURLAction: OpenURLAction) {
+        openWikipediaForPlace(place, openURLAction: openURLAction)
     }
 
     func onAddCustomLocationTap() {
@@ -99,12 +99,12 @@ private extension PlacesListViewModel {
         if remoteLocations.isEmpty && customLocations.isEmpty {
             state = .empty
         } else {
-            state = .data(locations: remoteLocations + customLocations)
+            state = .data(locations: remoteLocations.map(PlaceViewModel.init) + customLocations.map(PlaceViewModel.init))
         }
     }
 
-    func openLocation(_ location: Location, openURLAction: OpenURLAction) {
-        guard let url = wikipediaURLForLocation(location) else {
+    func openWikipediaForPlace(_ location: PlaceViewModel, openURLAction: OpenURLAction) {
+        guard let url = location.wikipediaURL else {
             showFloatingError("The location cannot opened. The location seems to have incorrect coordinates.")
             return
         }
@@ -117,14 +117,6 @@ private extension PlacesListViewModel {
             }
             self?.successSensoryFeedbackTrigger.toggle()
         }
-    }
-
-    func wikipediaURLForLocation(_ location: Location) -> URL? {
-        guard location.hasValidCoordinate else {
-            return nil
-        }
-
-        return URL(string: "wikipedia://places/?WMFCoordinate=\(location.latitude),\(location.longitude)")
     }
 
     func showFloatingError(_ message: LocalizedStringKey) {

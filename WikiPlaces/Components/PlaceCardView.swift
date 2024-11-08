@@ -1,5 +1,5 @@
 //
-//  LocationCardView.swift
+//  PlaceCardView.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 06/11/2024.
@@ -8,26 +8,26 @@
 import SwiftUI
 import MapKit
 
-struct LocationCardView: View {
+struct PlaceCardView: View {
 
     @Environment(\.openURL) var openURL
 
-    let location: Location
-    let onLocationTap: (Location, OpenURLAction) -> Void
+    let place: PlaceViewModel
+    let onPlaceTap: (PlaceViewModel, OpenURLAction) -> Void
 
     var body: some View {
         Button(action: {
-            onLocationTap(location, openURL)
+            onPlaceTap(place, openURL)
         }, label: {
             VStack {
                 Map(
-                    initialPosition: mapCameraPosition(forLocation: location),
+                    initialPosition: mapCameraPosition(place: place),
                     interactionModes: []
                 )
                 .aspectRatio(2, contentMode: .fit)
 
                 HStack {
-                    Label(location.displayName, systemImage: location.isUserLocation ? "person" : "globe")
+                    Label(place.displayName, systemImage: place.iconName)
                     Spacer()
                     Image(systemName: "chevron.right")
                         .foregroundStyle(.secondary)
@@ -41,23 +41,23 @@ struct LocationCardView: View {
         .transition(.opacity)
         .accessibilityHint("Opens location in Wikipedia App")
         .accessibilityLabel(content: { _ in
-            if location.name != nil {
-                Text(location.displayName)
+            if place.hasAccessibleDisplayName {
+                Text(place.displayName)
             } else {
                 Text("Unknown location with GPS coordinates")
             }
 
-            if location.isUserLocation {
+            if place.isUserLocation {
                 Text("Custom location")
             }
         })
 
     }
 
-    private func mapCameraPosition(forLocation location: Location) -> MapCameraPosition {
+    private func mapCameraPosition(place: PlaceViewModel) -> MapCameraPosition {
         MapCameraPosition.region(
             MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+                center: place.coordinate,
                 span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
             )
         )
@@ -65,6 +65,6 @@ struct LocationCardView: View {
 }
 
 #Preview {
-    LocationCardView(location: Location.examples.first!, onLocationTap: { _, _ in })
+    PlaceCardView(place: PlaceViewModel(location: Location.examples.first!), onPlaceTap: { _, _ in })
         .padding()
 }

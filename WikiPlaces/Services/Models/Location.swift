@@ -33,22 +33,7 @@ extension Location: Equatable {
     }
 }
 
-extension Location: Identifiable {
-    var id: String {
-        "\(name ?? "")\(latitude)\(longitude)"
-    }
-}
-
 extension Location {
-
-    var displayName: String {
-        name ?? "\(latitude), \(longitude)"
-    }
-
-    var hasValidCoordinate: Bool {
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        return CLLocationCoordinate2DIsValid(coordinate)
-    }
 
     static let examples: [Location] = [
         .init(name: "Amsterdam", latitude: 52.3547498, longitude: 4.8339215),

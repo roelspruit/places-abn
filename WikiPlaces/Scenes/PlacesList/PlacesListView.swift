@@ -24,7 +24,7 @@ struct PlacesListView: View {
                     buttonAction: viewModel.onAddCustomLocationTap
                 )
             case .data(let locations):
-                locationGridView(locations)
+                placeGridView(locations)
             case .error(let message):
                 FullscreenErrorView(
                     title: message,
@@ -61,14 +61,14 @@ struct PlacesListView: View {
         }
     }
 
-    private func locationGridView(_ locations: [Location]) -> some View {
+    private func placeGridView(_ locations: [PlaceViewModel]) -> some View {
         VStack(spacing: 0) {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 250))], spacing: 20) {
                     ForEach(locations) { location in
-                        LocationCardView(
-                            location: location,
-                            onLocationTap: viewModel.onLocationTap
+                        PlaceCardView(
+                            place: location,
+                            onPlaceTap: viewModel.onPlaceTap
                         )
                     }
                 }
