@@ -39,7 +39,9 @@ struct PlacesListView: View {
         }
         .overlay(
             alignment: .bottom,
-            content: { FloatingErrorView(message: $viewModel.floatingErrorMessage) }
+            content: {
+                FloatingErrorView(message: $viewModel.floatingErrorMessage)
+            }
         )
         .sheet(
             isPresented: $viewModel.showAddCustomLocationSheet,

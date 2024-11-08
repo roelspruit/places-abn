@@ -120,7 +120,9 @@ private extension PlacesListViewModel {
     }
 
     func showFloatingError(_ message: LocalizedStringKey) {
-        floatingErrorMessage = message
+        withAnimation {
+            floatingErrorMessage = message
+        }
     }
 
     func showFullScreenError(_ message: LocalizedStringKey) {

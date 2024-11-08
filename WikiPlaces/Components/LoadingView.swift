@@ -11,16 +11,12 @@ struct LoadingView: View {
 
     let title: LocalizedStringKey
 
-    @AccessibilityFocusState private var hasAccessibilityFocus: Bool
-
     var body: some View {
         ProgressView(title)
             .controlSize(.extraLarge)
             .padding()
-            .onAppear(perform: { hasAccessibilityFocus = true})
-            .onDisappear(perform: { hasAccessibilityFocus = false})
+            .focusAccessibilityOnAppear()
             .accessibilityLabel(title)
-            .accessibilityFocused($hasAccessibilityFocus)
     }
 }
 

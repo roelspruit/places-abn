@@ -62,7 +62,14 @@
       }
     },
     "Enter location information" : {
-
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voer locatie informatie in"
+          }
+        }
+      }
     },
     "Error loading locations. Check your internet connection and try again" : {
       "localizations" : {

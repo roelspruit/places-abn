@@ -11,7 +11,6 @@ struct FloatingErrorView: View {
 
     @Binding var message: LocalizedStringKey?
 
-    @AccessibilityFocusState private var hasAccessibilityFocus: Bool
     @State private var floatingErrorAutoHideTimer: Timer?
 
     private let floatingErrorAutoHideInterval: TimeInterval = 8
@@ -27,14 +26,17 @@ struct FloatingErrorView: View {
             .frame(maxWidth: .infinity)
             .onAppear(perform: {
                 startAutoHideTimer()
-                hasAccessibilityFocus = true
             })
-            .onDisappear(perform: { hasAccessibilityFocus = false})
-            .accessibilityFocused($hasAccessibilityFocus)
-            .background(Color.accentColor)
-            .onTapGesture {
-                $message.wrappedValue = nil
+            .focusAccessibilityOnAppear()
+            .background {
+                Color.popupBackground
+                    .ignoresSafeArea()
+                    .shadow(radius: 10)
             }
+            .onTapGesture {
+                hideMessage()
+            }
+            .transition(.move(edge: .bottom).combined(with: .opacity))
         }
     }
 
@@ -42,10 +44,16 @@ struct FloatingErrorView: View {
         floatingErrorAutoHideTimer?.invalidate()
         floatingErrorAutoHideTimer = Timer.scheduledTimer(withTimeInterval: floatingErrorAutoHideInterval, repeats: false) { _ in
             Task { @MainActor in
-                self.$message.wrappedValue = nil
-                self.floatingErrorAutoHideTimer = nil
+                hideMessage()
             }
         }
+    }
+
+    private func hideMessage() {
+        withAnimation {
+            $message.wrappedValue = nil
+        }
+        floatingErrorAutoHideTimer = nil
     }
 }
 
