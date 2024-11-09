@@ -63,6 +63,9 @@ struct PlaceCardView: View {
 }
 
 #Preview {
-    PlaceCardView(place: PlaceViewModel(location: Location.examples.first!), onPlaceTap: { _, _ in })
-        .padding()
+    PlaceCardView(
+        place: PlaceViewModel(location: Location.examples.first!),
+        onPlaceTap: { _, _ in }
+    )
+    .padding()
 }

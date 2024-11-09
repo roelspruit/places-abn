@@ -20,8 +20,9 @@ struct PlacesListView: View {
                 EmptyDataView(
                     title: "No locations found. Do you want to add a custom location?",
                     buttonTitle: "Add custom location",
-                    buttonAction: viewModel.onAddCustomLocationTap
+                    buttonAction: viewModel.onAddCustomPlaceTap
                 )
+                .padding()
             case let .data(locations):
                 placeGridView(locations)
             case let .error(message):
@@ -34,6 +35,7 @@ struct PlacesListView: View {
                         }
                     }
                 )
+                .padding()
             }
         }
         .overlay(
@@ -43,18 +45,18 @@ struct PlacesListView: View {
             }
         )
         .sheet(
-            isPresented: $viewModel.showAddCustomLocationSheet,
+            isPresented: $viewModel.showAddCustomPlaceSheet,
             content: {
                 NavigationStack {
                     AddPlaceForm(viewModel: AddPlaceFormViewModel(
-                        onSaveLocation: viewModel.onSaveCustomLocationTap
+                        onSaveLocation: viewModel.onSaveCustomPlaceTap
                     ))
                 }
                 .presentationDetents([.medium])
             }
         )
         .animation(.easeInOut, value: viewModel.floatingErrorMessage)
-        .animation(.easeInOut, value: viewModel.showAddCustomLocationSheet)
+        .animation(.easeInOut, value: viewModel.showAddCustomPlaceSheet)
         .navigationTitle("Locations")
         .navigationBarTitleDisplayMode(.inline)
         .task {
@@ -84,7 +86,7 @@ struct PlacesListView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Add Location", systemImage: "plus") {
                     withAnimation {
-                        viewModel.onAddCustomLocationTap()
+                        viewModel.onAddCustomPlaceTap()
                     }
                 }
             }
@@ -155,7 +157,7 @@ struct PlacesListView_Previews: PreviewProvider {
         let viewModel = PlacesListViewModel(
             locationService: LocationServiceMock()
         )
-        viewModel.showAddCustomLocationSheet = true
+        viewModel.showAddCustomPlaceSheet = true
         return NavigationStack {
             PlacesListView(
                 viewModel: viewModel

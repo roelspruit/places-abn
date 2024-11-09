@@ -22,7 +22,7 @@ final class PlacesListViewModel {
         return locations
     }
 
-    var showAddCustomLocationSheet = false
+    var showAddCustomPlaceSheet = false
 
     private let locationService: LocationServiceProtocol
 
@@ -56,13 +56,13 @@ extension PlacesListViewModel {
         openWikipediaForPlace(place, openURLAction: openURLAction)
     }
 
-    func onAddCustomLocationTap() {
-        showAddCustomLocationSheet = true
+    func onAddCustomPlaceTap() {
+        showAddCustomPlaceSheet = true
     }
 
-    func onSaveCustomLocationTap(_ newLocation: Location?) {
+    func onSaveCustomPlaceTap(_ newLocation: Location?) {
         defer {
-            showAddCustomLocationSheet = false
+            showAddCustomPlaceSheet = false
         }
 
         guard let location = newLocation else {

@@ -35,7 +35,6 @@ final class AddPlaceFormViewModel {
 
 private extension AddPlaceFormViewModel {
     var locationFromFields: Location? {
-        // Slightly hacky: the `decimalPad` keyboard type uses comma as a separator, the Double type requires a dot separator
         guard let latitude = latitude.doubleValue,
               let longitude = longitude.doubleValue
         else {
