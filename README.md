@@ -3,9 +3,9 @@
 Thank you for taking the time to evaluate my implementation of the iOS Developer hiring assignment for ABN AMRO. I've spent about 8 hours building an app that matches the requirements while trying to match my personal level of quality within the limited time I had. My intention while building this app was to give an example of my approach to such relatively small apps while also leaving room for more advanced approaches if such an app would grow to be more complex in the future. Below I have written down some of the choices and compromises I made during this process but I would love to have an opportunity to discuss my thoughts more in depth.
 
 ## Requirements
-The WikiPlaces app requires Xcode 16.0 as some of the features I use in the codebase actually require that version (such as the new Swift Testing framework). 
+The WikiPlaces app was built on Xcode 16.1 as some of the features I use in the codebase actually require that version (such as the new Swift Testing framework). 
 
-The requirements for building and running the Wikpedia app requirements are written down in the [repositories readme file](https://github.com/wikimedia/wikipedia-ios).
+The requirements for building and running the Wikpedia app are written down in the [repositories readme file](https://github.com/wikimedia/wikipedia-ios).
 
 ## Technical decisions
 - **Architecture**. I chose to stick to a simple MVVM architecture. The amount of logic in the ViewModel of the main list is not huge and for such a small app with a single view I think this is appropriate. Often the architecture of the apps I work on have been predetermined by the teams I work with but in general I tend to prefer setups where the amount of boilerplate code is minimal. My main concerns when making architecture decisions are always the readability,  complexity and testability of the code.
