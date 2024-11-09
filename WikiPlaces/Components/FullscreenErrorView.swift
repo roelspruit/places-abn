@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FullscreenErrorView: View {
-
     let title: LocalizedStringKey
     let buttonTitle: LocalizedStringKey
     let buttonAction: () -> Void
@@ -25,7 +24,7 @@ struct FullscreenErrorView: View {
                 .multilineTextAlignment(.center)
 
             Button(buttonTitle, action: buttonAction)
-            .buttonStyle(.borderedProminent)
+                .buttonStyle(.borderedProminent)
         }
         .focusAccessibilityOnAppear()
         .padding()
@@ -36,6 +35,6 @@ struct FullscreenErrorView: View {
     FullscreenErrorView(
         title: "Something went wrong",
         buttonTitle: "Retry",
-        buttonAction: { }
+        buttonAction: {}
     )
 }

@@ -5,12 +5,11 @@
 //  Created by Roel Spruit on 19/10/2024.
 //
 
+import SwiftUICore
 import Testing
 @testable import WikiPlaces
-import SwiftUICore
 
 @MainActor struct PlacesListViewModelTests {
-
     // MARK: - Loading
 
     @Test("Location service should be called when view appears")
@@ -49,7 +48,6 @@ import SwiftUICore
 
         #expect(sut.floatingErrorMessage == nil)
         #expect(openedURL?.absoluteString == "wikipedia://places/?WMFCoordinate=52.3547498,4.8339215")
-
     }
 
     @Test("Tapping location with incorrect coordinates should show an error")
@@ -57,8 +55,8 @@ import SwiftUICore
         // Location with invalid GPS coordinates
         let place = PlaceViewModel(location: Location(name: nil, latitude: -100, longitude: 200))
         let sut = PlacesListViewModel(locationService: LocationServiceMock())
-        let urlAction = OpenURLAction { url in
-            return .handled
+        let urlAction = OpenURLAction { _ in
+            .handled
         }
 
         sut.onPlaceTap(place, openURLAction: urlAction)
@@ -70,8 +68,8 @@ import SwiftUICore
     func failingURLActionShouldShowError() async throws {
         let place = PlaceViewModel(location: Location.examples.first!)
         let sut = PlacesListViewModel(locationService: LocationServiceMock())
-        let urlAction = OpenURLAction { url in
-            return .discarded
+        let urlAction = OpenURLAction { _ in
+            .discarded
         }
 
         sut.onPlaceTap(place, openURLAction: urlAction)

@@ -8,7 +8,7 @@
 import CoreLocation
 
 extension CLLocationCoordinate2D {
-    var coordinatesAreValid: Bool {
-        return CLLocationCoordinate2DIsValid(self)
+    var isValidCoordinate: Bool {
+        CLLocationCoordinate2DIsValid(self)
     }
 }

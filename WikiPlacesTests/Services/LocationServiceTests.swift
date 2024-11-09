@@ -5,12 +5,11 @@
 //  Created by Roel Spruit on 19/10/2024.
 //
 
-import Testing
 import Foundation
+import Testing
 @testable import WikiPlaces
 
 struct LocationServiceTests {
-
     @Test("Incorrect configured URL should not result in a service call") func shouldCheckForIncorrectJSONURL() async throws {
         let dataRequestService = DataRequestServiceMock(mockResponses: [:])
         let sut = LocationService(
@@ -46,7 +45,6 @@ struct LocationServiceTests {
     }
 
     @Test("Incorrect data format received") func getLocationsThrowsErrorOnIncorrectDecoding() async throws {
-
         let url = URL(string: "http://www.someurl.com")!
         let response = Location.examples // Incorrect data. Should be wrapped in a `LocationListResponse`
         let expectedData = try JSONEncoder().encode(response)
@@ -62,7 +60,7 @@ struct LocationServiceTests {
         )
 
         await #expect(throws: Error.self, performing: {
-            _  = try await sut.getLocations()
+            _ = try await sut.getLocations()
         })
     }
 }

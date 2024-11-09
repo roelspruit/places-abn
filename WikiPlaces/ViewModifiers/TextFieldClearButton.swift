@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ClearButton: ViewModifier {
-
     @Binding var text: String
 
     func body(content: Content) -> some View {

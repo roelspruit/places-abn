@@ -1,15 +1,14 @@
 //
-//  CharacterInputValidation.swift
+//  CoordinateInputValidation.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 07/11/2024.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct CharacterInputValidation: ViewModifier {
-
     @Binding var text: String
 
     let allowedCharacters: String
@@ -19,13 +18,13 @@ struct CharacterInputValidation: ViewModifier {
     func body(content: Content) -> some View {
         content
             .sensoryFeedback(.error, trigger: sensoryFeedbackTrigger)
-            .onChange(of: text, { _, newValue in
+            .onChange(of: text) { _, newValue in
                 let filtered = newValue.filter { allowedCharacters.contains($0) }
                 if filtered != newValue {
                     sensoryFeedbackTrigger.toggle()
                     text = filtered
                 }
-            })
+            }
     }
 }
 

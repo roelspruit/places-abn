@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PlacesListView: View {
-
     @State var viewModel: PlacesListViewModel
     @Environment(\.openURL) var openURL
 
@@ -23,9 +22,9 @@ struct PlacesListView: View {
                     buttonTitle: "Add custom location",
                     buttonAction: viewModel.onAddCustomLocationTap
                 )
-            case .data(let locations):
+            case let .data(locations):
                 placeGridView(locations)
-            case .error(let message):
+            case let .error(message):
                 FullscreenErrorView(
                     title: message,
                     buttonTitle: "Retry",
@@ -131,7 +130,7 @@ struct PlacesListView: View {
         PlacesListView(
             viewModel: .init(
                 locationService: LocationServiceMock(getLocationsStub: {
-                    return []
+                    []
                 })
             )
         )

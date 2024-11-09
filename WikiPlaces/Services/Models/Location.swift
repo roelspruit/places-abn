@@ -8,7 +8,6 @@
 import CoreLocation
 
 struct Location: Codable {
-
     let name: String?
     let latitude: CLLocationDegrees
     let longitude: CLLocationDegrees
@@ -28,13 +27,12 @@ extension Location: Equatable {
     // Excludes `isUserLocation` from equality comparison since it is irrelevant
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.latitude == rhs.latitude
-        && lhs.longitude == rhs.longitude
-        && lhs.name == rhs.name
+            && lhs.longitude == rhs.longitude
+            && lhs.name == rhs.name
     }
 }
 
 extension Location {
-
     static let examples: [Location] = [
         .init(name: "Amsterdam", latitude: 52.3547498, longitude: 4.8339215),
         .init(name: "Copenhagen", latitude: 55.6713442, longitude: 12.523785),

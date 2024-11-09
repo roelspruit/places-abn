@@ -7,10 +7,10 @@
 
 extension Double {
     var isValidLatitude: Bool {
-        -90 <= self && self <= 90
+        self >= -90 && self <= 90
     }
 
     var isValidLongitude: Bool {
-        -180 <= self && self <= 180
+        self >= -180 && self <= 180
     }
 }

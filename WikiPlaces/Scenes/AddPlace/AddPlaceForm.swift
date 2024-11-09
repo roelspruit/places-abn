@@ -5,11 +5,10 @@
 //  Created by Roel Spruit on 05/11/2024.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct AddPlaceForm: View {
-
     @State var viewModel: AddPlaceFormViewModel
 
     @Environment(\.dismiss) private var dismiss

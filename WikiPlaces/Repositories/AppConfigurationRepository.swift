@@ -1,5 +1,5 @@
 //
-//  AppConfiguration.swift
+//  AppConfigurationRepository.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 17/10/2024.
@@ -13,7 +13,6 @@ protocol AppConfigurationRepositoryProtocol: Actor, Sendable {
 
 /// Provides strongly typed access to information from the app bundle's `infoDictionary`
 actor AppConfigurationRepository: AppConfigurationRepositoryProtocol {
-
     private enum InfoDictionaryKey: String {
         case locationJSONURL = "LOCATION_JSON_URL"
     }

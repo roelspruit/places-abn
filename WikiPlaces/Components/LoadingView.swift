@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoadingView: View {
-
     let title: LocalizedStringKey
 
     var body: some View {

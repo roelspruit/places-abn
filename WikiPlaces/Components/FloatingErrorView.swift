@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FloatingErrorView: View {
-
     @Binding var message: LocalizedStringKey?
 
     @State private var floatingErrorAutoHideTimer: Timer?

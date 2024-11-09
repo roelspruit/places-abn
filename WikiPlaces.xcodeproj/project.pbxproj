@@ -101,6 +101,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4B800C82CC00B3A0026C01B /* Build configuration list for PBXNativeTarget "WikiPlaces" */;
 			buildPhases = (
+				F4E1DDFC2CDF38BA0088E2B4 /* Run SwiftFormat */,
 				F4B800A02CC00B390026C01B /* Sources */,
 				F4B800A12CC00B390026C01B /* Frameworks */,
 				F4B800A22CC00B390026C01B /* Resources */,
@@ -203,6 +204,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F4E1DDFC2CDF38BA0088E2B4 /* Run SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftFormat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n#swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswift run -c release swiftformat \"$SRCROOT\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F4B800A02CC00B390026C01B /* Sources */ = {
@@ -373,6 +396,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 74S47PCZWX;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WikiPlaces/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -404,6 +428,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 74S47PCZWX;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WikiPlaces/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

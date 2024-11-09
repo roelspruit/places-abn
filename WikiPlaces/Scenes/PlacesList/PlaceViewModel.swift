@@ -5,11 +5,10 @@
 //  Created by Roel Spruit on 08/11/2024.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 struct PlaceViewModel {
-
     private let location: Location
 
     init(location: Location) {
@@ -35,14 +34,14 @@ struct PlaceViewModel {
 
     var displayName: String {
         if let locationName = location.name, !locationName.isEmpty {
-            return locationName
+            locationName
         } else {
-            return "\(location.latitude), \(location.longitude)"
+            "\(location.latitude), \(location.longitude)"
         }
     }
 
     var hasValidCoordinate: Bool {
-        coordinate.coordinatesAreValid
+        coordinate.isValidCoordinate
     }
 
     var wikipediaURL: URL? {

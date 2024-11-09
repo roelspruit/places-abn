@@ -5,11 +5,10 @@
 //  Created by Roel Spruit on 06/11/2024.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct PlaceCardView: View {
-
     @Environment(\.openURL) var openURL
 
     let place: PlaceViewModel
@@ -51,7 +50,6 @@ struct PlaceCardView: View {
                 Text("Custom location")
             }
         })
-
     }
 
     private func mapCameraPosition(place: PlaceViewModel) -> MapCameraPosition {

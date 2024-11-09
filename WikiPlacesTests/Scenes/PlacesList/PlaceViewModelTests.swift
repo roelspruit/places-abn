@@ -5,13 +5,12 @@
 //  Created by Roel Spruit on 08/11/2024.
 //
 
-import Testing
 import CoreLocation
+import Testing
 
 @testable import WikiPlaces
 
 struct PlaceViewModelTests {
-
     @Test("Correct icon name for different types of locations", arguments: [
         (true, "person"),
         (false, "globe")

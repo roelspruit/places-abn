@@ -5,12 +5,11 @@
 //  Created by Roel Spruit on 07/11/2024.
 //
 
+import SwiftUICore
 import Testing
 @testable import WikiPlaces
-import SwiftUICore
 
 @MainActor struct AddPlaceFormViewModelTests {
-
     @Test("Invalid fields for custom locations", arguments: [
         ("", "", ""),
         ("Non-double values", "abc", "def"),

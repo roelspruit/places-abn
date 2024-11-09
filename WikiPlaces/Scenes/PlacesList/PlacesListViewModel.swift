@@ -4,12 +4,11 @@
 //
 //  Created by Roel Spruit on 17/10/2024.
 //
-import SwiftUI
 import CoreLocation
+import SwiftUI
 
 @Observable @MainActor
 final class PlacesListViewModel {
-
     var state: State = .loading
     var floatingErrorMessage: LocalizedStringKey?
     var errorSensoryFeedbackTrigger = false
@@ -17,7 +16,7 @@ final class PlacesListViewModel {
 
     // Convenience property to get data from state in unit tests
     var data: [PlaceViewModel] {
-        guard case .data(let locations) = state else {
+        guard case let .data(locations) = state else {
             return []
         }
         return locations
@@ -45,7 +44,6 @@ final class PlacesListViewModel {
 // MARK: - View events
 
 extension PlacesListViewModel {
-
     func onTask() async {
         await getLocations()
     }
@@ -63,7 +61,6 @@ extension PlacesListViewModel {
     }
 
     func onSaveCustomLocationTap(_ newLocation: Location?) {
-
         defer {
             showAddCustomLocationSheet = false
         }
@@ -82,7 +79,6 @@ extension PlacesListViewModel {
 // MARK: - Private functions and properties
 
 private extension PlacesListViewModel {
-
     func getLocations() async {
         state = .loading
 
@@ -96,7 +92,7 @@ private extension PlacesListViewModel {
     }
 
     func updateDataState() {
-        if remoteLocations.isEmpty && customLocations.isEmpty {
+        if remoteLocations.isEmpty, customLocations.isEmpty {
             state = .empty
         } else {
             state = .data(locations: remoteLocations.map(PlaceViewModel.init) + customLocations.map(PlaceViewModel.init))

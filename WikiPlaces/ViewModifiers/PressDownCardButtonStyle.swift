@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct PressDownCardButtonStyle: ButtonStyle {
-
-    private let corderRadius =  CGFloat(10)
+    private let corderRadius = CGFloat(10)
     private let shadowColor = Color.black.opacity(0.1)
     private let animationDuration = TimeInterval(0.1)
     private let scaledDownSize = CGFloat(0.95)

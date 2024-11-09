@@ -6,11 +6,9 @@
 //
 
 extension String {
-
     /// Attempts to generate a Double out of this string. Replaces any `,` with `.` before trying.
     var doubleValue: Double? {
-        let sanitizedString = self
-            .replacingOccurrences(of: ",", with: ".")
+        let sanitizedString = replacingOccurrences(of: ",", with: ".")
             .trimmingCharacters(in: .whitespacesAndNewlines)
 
         return Double(sanitizedString)
