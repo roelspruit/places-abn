@@ -27,7 +27,6 @@ struct EmptyDataView: View {
                 .buttonStyle(.borderedProminent)
         }
         .focusAccessibilityOnAppear()
-        .padding()
     }
 }
 

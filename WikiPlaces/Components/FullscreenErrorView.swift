@@ -27,7 +27,6 @@ struct FullscreenErrorView: View {
                 .buttonStyle(.borderedProminent)
         }
         .focusAccessibilityOnAppear()
-        .padding()
     }
 }
 

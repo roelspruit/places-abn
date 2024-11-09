@@ -18,7 +18,7 @@ struct PlaceCardView: View {
         Button(action: {
             onPlaceTap(place, openURL)
         }, label: {
-            VStack {
+            VStack(spacing: 0) {
                 Map(
                     initialPosition: mapCameraPosition(place: place),
                     interactionModes: []
@@ -31,8 +31,7 @@ struct PlaceCardView: View {
                     Image(systemName: "chevron.right")
                         .foregroundStyle(.secondary)
                 }
-                .padding(.top, 5)
-                .padding([.horizontal, .bottom], 15)
+                .padding(15)
             }
             .accessibilityElement(children: .ignore)
         })
@@ -63,6 +62,9 @@ struct PlaceCardView: View {
 }
 
 #Preview {
-    PlaceCardView(place: PlaceViewModel(location: Location.examples.first!), onPlaceTap: { _, _ in })
-        .padding()
+    PlaceCardView(
+        place: PlaceViewModel(location: Location.examples.first!),
+        onPlaceTap: { _, _ in }
+    )
+    .padding()
 }
