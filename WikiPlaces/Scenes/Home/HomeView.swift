@@ -26,12 +26,7 @@ struct HomeView: View {
                 .focusAccessibilityOnAppear()
                 .padding()
             case let .data(places):
-                VStack(spacing: 0) {
-                    ScrollView {
-                        PlaceGridView(places: places, onPlaceTap: viewModel.onPlaceTap)
-                            .padding()
-                    }
-                }
+                PlaceGridView(places: places, onPlaceTap: viewModel.onPlaceTap)
             case let .error(message):
                 FullscreenErrorView(
                     title: message,

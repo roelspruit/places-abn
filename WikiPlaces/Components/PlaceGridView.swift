@@ -12,13 +12,16 @@ struct PlaceGridView: View {
     let onPlaceTap: (PlaceViewModel, OpenURLAction) -> Void
 
     var body: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 250))], spacing: 20) {
-            ForEach(places) { place in
-                PlaceCardView(
-                    place: place,
-                    onPlaceTap: onPlaceTap
-                )
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 250))], spacing: 20) {
+                ForEach(places) { place in
+                    PlaceCardView(
+                        place: place,
+                        onPlaceTap: onPlaceTap
+                    )
+                }
             }
+            .padding()
         }
     }
 }
