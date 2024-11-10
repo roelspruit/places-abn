@@ -1,5 +1,5 @@
 //
-//  AddPlaceFormViewModelTests.swift
+//  AddPlaceViewModelTests.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 07/11/2024.
@@ -9,7 +9,7 @@ import SwiftUICore
 import Testing
 @testable import WikiPlaces
 
-@MainActor struct AddPlaceFormViewModelTests {
+@MainActor struct AddPlaceViewModelTests {
     @Test("Invalid fields for custom locations", arguments: [
         ("", "", ""),
         ("Non-double values", "abc", "def"),
@@ -19,7 +19,7 @@ import Testing
         ("Out-of-bounds longitude", "52.3547498", "181")
     ])
     func invalidCustomLocationFields(name: String, latitude: String, longitude: String) {
-        let sut = AddPlaceFormViewModel(onSaveLocation: { _ in })
+        let sut = AddPlaceViewModel(onSaveLocation: { _ in })
         sut.locationName = name
         sut.latitude = latitude
         sut.longitude = longitude
@@ -35,7 +35,7 @@ import Testing
         ("Valid Coordinates", "-90", "-180")
     ])
     func validCustomLocationFields(name: String, latitude: String, longitude: String) {
-        let sut = AddPlaceFormViewModel(onSaveLocation: { _ in })
+        let sut = AddPlaceViewModel(onSaveLocation: { _ in })
         sut.locationName = name
         sut.latitude = latitude
         sut.longitude = longitude
@@ -49,7 +49,7 @@ import Testing
         ("Latitude and Longitude too high", "200", "200")
     ])
     func inputErrorShown(name: String, latitude: String, longitude: String) {
-        let sut = AddPlaceFormViewModel(onSaveLocation: { _ in })
+        let sut = AddPlaceViewModel(onSaveLocation: { _ in })
         sut.locationName = name
         sut.latitude = latitude
         sut.longitude = longitude
@@ -62,7 +62,7 @@ import Testing
         ("Valid fields", "50", "50")
     ])
     func inputErrorNotShown(name: String, latitude: String, longitude: String) {
-        let sut = AddPlaceFormViewModel(onSaveLocation: { _ in })
+        let sut = AddPlaceViewModel(onSaveLocation: { _ in })
         sut.locationName = name
         sut.latitude = latitude
         sut.longitude = longitude
@@ -73,7 +73,7 @@ import Testing
     @Test("Saving location should return location")
     func saveCustomLocationShouldUpdateData() async throws {
         var savedLocation: Location?
-        let sut = AddPlaceFormViewModel(
+        let sut = AddPlaceViewModel(
             onSaveLocation: { savedLocation = $0 }
         )
         sut.locationName = "Some Location Name"
