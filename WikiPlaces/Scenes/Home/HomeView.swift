@@ -72,7 +72,7 @@ struct HomeView: View {
                     Image("linkedin")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 30)
+                        .frame(width: 25)
                 }
                 .accessibilityLabel("Open my LinkedIn Profile")
             }
