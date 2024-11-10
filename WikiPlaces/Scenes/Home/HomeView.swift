@@ -76,10 +76,13 @@ struct HomeView: View {
                 }
                 .accessibilityLabel("Open my LinkedIn Profile")
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("Add Location", systemImage: "plus") {
-                    withAnimation {
-                        viewModel.onAddCustomPlaceTap()
+
+            if case .data = viewModel.state {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add Location", systemImage: "plus") {
+                        withAnimation {
+                            viewModel.onAddCustomPlaceTap()
+                        }
                     }
                 }
             }
