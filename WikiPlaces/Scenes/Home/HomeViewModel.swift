@@ -13,15 +13,6 @@ final class HomeViewModel {
     var floatingErrorMessage: LocalizedStringKey?
     var errorSensoryFeedbackTrigger = false
     var successSensoryFeedbackTrigger = false
-
-    // Convenience property to get data from state in unit tests
-    var data: [PlaceViewModel] {
-        guard case let .data(places) = state else {
-            return []
-        }
-        return places
-    }
-
     var showAddCustomPlaceSheet = false
 
     private let locationService: LocationServiceProtocol
@@ -34,6 +25,14 @@ final class HomeViewModel {
         case data(places: [PlaceViewModel])
         case empty
         case error(message: LocalizedStringKey)
+
+        // Convenience property to get data from state
+        var data: [PlaceViewModel]? {
+            guard case let .data(places) = self else {
+                return nil
+            }
+            return places
+        }
     }
 
     init(locationService: LocationServiceProtocol) {
@@ -76,7 +75,7 @@ extension HomeViewModel {
     }
 }
 
-// MARK: - Private functions and properties
+// MARK: - Private functions
 
 private extension HomeViewModel {
     func getLocations() async {

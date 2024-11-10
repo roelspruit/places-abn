@@ -16,15 +16,22 @@ struct HomeView: View {
             switch viewModel.state {
             case .loading:
                 LoadingView(title: "Loading locations")
+                    .focusAccessibilityOnAppear()
             case .empty:
                 EmptyDataView(
                     title: "No locations found. Do you want to add a custom location?",
                     buttonTitle: "Add custom location",
                     buttonAction: viewModel.onAddCustomPlaceTap
                 )
+                .focusAccessibilityOnAppear()
                 .padding()
             case let .data(places):
-                placeGridView(places)
+                VStack(spacing: 0) {
+                    ScrollView {
+                        PlaceGridView(places: places, onPlaceTap: viewModel.onPlaceTap)
+                            .padding()
+                    }
+                }
             case let .error(message):
                 FullscreenErrorView(
                     title: message,
@@ -35,6 +42,7 @@ struct HomeView: View {
                         }
                     }
                 )
+                .focusAccessibilityOnAppear()
                 .padding()
             }
         }
@@ -56,21 +64,18 @@ struct HomeView: View {
         .sensoryFeedback(.success, trigger: viewModel.successSensoryFeedbackTrigger)
         .navigationTitle("Locations")
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            await viewModel.onTask()
-        }
-    }
-
-    private func placeGridView(_ places: [PlaceViewModel]) -> some View {
-        VStack(spacing: 0) {
-            ScrollView {
-                PlaceGridView(places: places, onPlaceTap: viewModel.onPlaceTap)
-                    .padding()
-            }
-
-            CreditFooterView()
-        }
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    openURL(URL(string: "https://www.linkedin.com/in/roelspruit/")!)
+                } label: {
+                    Image("linkedin")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30)
+                }
+                .accessibilityLabel("Open my LinkedIn Profile")
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Add Location", systemImage: "plus") {
                     withAnimation {
@@ -78,6 +83,9 @@ struct HomeView: View {
                     }
                 }
             }
+        }
+        .task {
+            await viewModel.onTask()
         }
     }
 }

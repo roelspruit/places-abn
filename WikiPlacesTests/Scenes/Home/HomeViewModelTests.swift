@@ -12,6 +12,10 @@ import Testing
 @MainActor struct HomeViewModelTests {
     // MARK: - Loading
 
+    enum TestingError: Error {
+        case dataUnwrapError
+    }
+
     @Test("Location service should be called when view appears")
     func dataShouldLoadOnAppear() async throws {
         let locationService = LocationServiceMock()
@@ -19,7 +23,8 @@ import Testing
 
         await sut.onTask()
 
-        #expect(sut.data == Location.examples.map(PlaceViewModel.init))
+        let data = try #require(sut.state.data)
+        #expect(data == Location.examples.map(PlaceViewModel.init))
     }
 
     @Test("Location service should be called when tapping retry button")
@@ -29,7 +34,8 @@ import Testing
 
         await sut.onRetryTap()
 
-        #expect(sut.data == Location.examples.map(PlaceViewModel.init))
+        let data = try #require(sut.state.data)
+        #expect(data == Location.examples.map(PlaceViewModel.init))
     }
 
     // MARK: - Location Opening

@@ -26,7 +26,6 @@ struct EmptyDataView: View {
             Button(buttonTitle, action: buttonAction)
                 .buttonStyle(.borderedProminent)
         }
-        .focusAccessibilityOnAppear()
     }
 }
 

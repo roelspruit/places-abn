@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "ABN AMRO Hiring Assignment 2024 by Roel Spruit." : {
-      "localizations" : {
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ABN AMRO Inhuur Opdracht 2024 door Roel Spruit."
-          }
-        }
-      }
-    },
     "Add custom location" : {
       "localizations" : {
         "nl" : {

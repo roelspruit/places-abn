@@ -14,7 +14,6 @@ struct LoadingView: View {
         ProgressView(title)
             .controlSize(.extraLarge)
             .padding()
-            .focusAccessibilityOnAppear()
             .accessibilityLabel(title)
     }
 }
