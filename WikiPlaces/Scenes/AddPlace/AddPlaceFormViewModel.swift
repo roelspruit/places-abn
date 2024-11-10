@@ -7,7 +7,7 @@
 import CoreLocation
 import SwiftUI
 
-@Observable
+@Observable @MainActor
 final class AddPlaceFormViewModel {
     var locationName: String = ""
     var latitude: String = ""

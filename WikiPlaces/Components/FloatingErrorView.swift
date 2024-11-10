@@ -57,11 +57,30 @@ struct FloatingErrorView: View {
     }
 }
 
+// This viewmodifier and the extension on `View` below will make it easy to display these floating errors on top of any screen that needs it.
+struct FloatingErrorViewModifier: ViewModifier {
+    @Binding var message: LocalizedStringKey?
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                alignment: .bottom,
+                content: {
+                    FloatingErrorView(message: $message)
+                }
+            )
+    }
+}
+
+extension View {
+    /// Adds a cross icon icon on the right side of the view that will clear the contents of the given text binding when tapped.
+    func floatingErrorMessage(_ message: Binding<LocalizedStringKey?>) -> some View {
+        modifier(FloatingErrorViewModifier(message: message))
+    }
+}
+
 #Preview {
     ZStack {
         Color.clear.ignoresSafeArea()
-            .overlay(alignment: .bottom) {
-                FloatingErrorView(message: .constant("Something went wrong"))
-            }
+            .floatingErrorMessage(.constant("Something went wrong"))
     }
 }

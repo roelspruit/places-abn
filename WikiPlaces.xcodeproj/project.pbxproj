@@ -26,17 +26,11 @@
 		F419A5EF2CC10EC500EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlaces" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Config-Debug.xcconfig",
+				"Config-Release.xcconfig",
 				Info.plist,
 			);
 			target = F4B800A32CC00B390026C01B /* WikiPlaces */;
-		};
-		F419A5F42CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Config-Debug.xcconfig",
-				"Config-Release.xcconfig",
-			);
-			target = F4B800B32CC00B3A0026C01B /* WikiPlacesTests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -45,7 +39,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				F419A5EF2CC10EC500EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlaces" target */,
-				F419A5F42CC111C200EB7B97 /* Exceptions for "WikiPlaces" folder in "WikiPlacesTests" target */,
 			);
 			path = WikiPlaces;
 			sourceTree = "<group>";
@@ -152,7 +145,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					F4B800A32CC00B390026C01B = {
 						CreatedOnToolsVersion = 16.0;
@@ -264,6 +257,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -332,6 +326,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

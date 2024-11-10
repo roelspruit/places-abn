@@ -1,5 +1,5 @@
 //
-//  PlacesListViewModelTests.swift
+//  HomeViewModelTests.swift
 //  WikiPlacesTests
 //
 //  Created by Roel Spruit on 19/10/2024.
@@ -9,13 +9,13 @@ import SwiftUICore
 import Testing
 @testable import WikiPlaces
 
-@MainActor struct PlacesListViewModelTests {
+@MainActor struct HomeViewModelTests {
     // MARK: - Loading
 
     @Test("Location service should be called when view appears")
     func dataShouldLoadOnAppear() async throws {
         let locationService = LocationServiceMock()
-        let sut = PlacesListViewModel(locationService: locationService)
+        let sut = HomeViewModel(locationService: locationService)
 
         await sut.onTask()
 
@@ -25,7 +25,7 @@ import Testing
     @Test("Location service should be called when tapping retry button")
     func dataShouldLoadOnRetry() async throws {
         let locationService = LocationServiceMock()
-        let sut = PlacesListViewModel(locationService: locationService)
+        let sut = HomeViewModel(locationService: locationService)
 
         await sut.onRetryTap()
 
@@ -37,7 +37,7 @@ import Testing
     @Test("Tapping a location should open the wikipedia app")
     func locationTapShouldOpenWikipediaURL() async throws {
         let place = PlaceViewModel(location: Location.examples.first!)
-        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        let sut = HomeViewModel(locationService: LocationServiceMock())
         var openedURL: URL?
         let urlAction = OpenURLAction { url in
             openedURL = url
@@ -54,7 +54,7 @@ import Testing
     func incorrectLocationShouldShowError() async throws {
         // Location with invalid GPS coordinates
         let place = PlaceViewModel(location: Location(name: nil, latitude: -100, longitude: 200))
-        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        let sut = HomeViewModel(locationService: LocationServiceMock())
         let urlAction = OpenURLAction { _ in
             .handled
         }
@@ -67,7 +67,7 @@ import Testing
     @Test("Failure to open wikipedia app should show an error")
     func failingURLActionShouldShowError() async throws {
         let place = PlaceViewModel(location: Location.examples.first!)
-        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        let sut = HomeViewModel(locationService: LocationServiceMock())
         let urlAction = OpenURLAction { _ in
             .discarded
         }
@@ -81,19 +81,19 @@ import Testing
 
     @Test("Show custom location sheet")
     func addCustomLocationShouldShowSheet() async throws {
-        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        let sut = HomeViewModel(locationService: LocationServiceMock())
 
-        sut.onAddCustomLocationTap()
+        sut.onAddCustomPlaceTap()
 
-        #expect(sut.showAddCustomLocationSheet)
+        #expect(sut.showAddCustomPlaceSheet)
     }
 
     @Test("Save custom location sheet should hide sheet")
     func cancelAddCustomLocationShouldHideSheet() async throws {
-        let sut = PlacesListViewModel(locationService: LocationServiceMock())
+        let sut = HomeViewModel(locationService: LocationServiceMock())
 
-        sut.onSaveCustomLocationTap(.examples.first!)
+        sut.onSaveCustomPlaceTap(.examples.first!)
 
-        #expect(sut.showAddCustomLocationSheet == false)
+        #expect(sut.showAddCustomPlaceSheet == false)
     }
 }

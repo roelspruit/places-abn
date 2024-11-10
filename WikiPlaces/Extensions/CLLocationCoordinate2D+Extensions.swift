@@ -8,6 +8,7 @@
 import CoreLocation
 
 extension CLLocationCoordinate2D {
+    /// Returns a Boolean value indicating whether this coordinate is valid.
     var isValidCoordinate: Bool {
         CLLocationCoordinate2DIsValid(self)
     }

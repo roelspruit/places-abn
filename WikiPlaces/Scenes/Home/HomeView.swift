@@ -1,5 +1,5 @@
 //
-//  PlacesListView.swift
+//  HomeView.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 16/10/2024.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct PlacesListView: View {
-    @State var viewModel: PlacesListViewModel
+struct HomeView: View {
+    @State var viewModel: HomeViewModel
     @Environment(\.openURL) var openURL
 
     var body: some View {
@@ -23,8 +23,8 @@ struct PlacesListView: View {
                     buttonAction: viewModel.onAddCustomPlaceTap
                 )
                 .padding()
-            case let .data(locations):
-                placeGridView(locations)
+            case let .data(places):
+                placeGridView(places)
             case let .error(message):
                 FullscreenErrorView(
                     title: message,
@@ -38,12 +38,7 @@ struct PlacesListView: View {
                 .padding()
             }
         }
-        .overlay(
-            alignment: .bottom,
-            content: {
-                FloatingErrorView(message: $viewModel.floatingErrorMessage)
-            }
-        )
+        .floatingErrorMessage($viewModel.floatingErrorMessage)
         .sheet(
             isPresented: $viewModel.showAddCustomPlaceSheet,
             content: {
@@ -57,6 +52,8 @@ struct PlacesListView: View {
         )
         .animation(.easeInOut, value: viewModel.floatingErrorMessage)
         .animation(.easeInOut, value: viewModel.showAddCustomPlaceSheet)
+        .sensoryFeedback(.error, trigger: viewModel.errorSensoryFeedbackTrigger)
+        .sensoryFeedback(.success, trigger: viewModel.successSensoryFeedbackTrigger)
         .navigationTitle("Locations")
         .navigationBarTitleDisplayMode(.inline)
         .task {
@@ -64,24 +61,15 @@ struct PlacesListView: View {
         }
     }
 
-    private func placeGridView(_ locations: [PlaceViewModel]) -> some View {
+    private func placeGridView(_ places: [PlaceViewModel]) -> some View {
         VStack(spacing: 0) {
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 250))], spacing: 20) {
-                    ForEach(locations) { location in
-                        PlaceCardView(
-                            place: location,
-                            onPlaceTap: viewModel.onPlaceTap
-                        )
-                    }
-                }
-                .padding()
+                PlaceGridView(places: places, onPlaceTap: viewModel.onPlaceTap)
+                    .padding()
             }
 
-            footerView
+            CreditFooterView()
         }
-        .sensoryFeedback(.error, trigger: viewModel.errorSensoryFeedbackTrigger)
-        .sensoryFeedback(.success, trigger: viewModel.successSensoryFeedbackTrigger)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Add Location", systemImage: "plus") {
@@ -92,34 +80,11 @@ struct PlacesListView: View {
             }
         }
     }
-
-    private var footerView: some View {
-        VStack(spacing: 5) {
-            Divider()
-
-            Text("ABN AMRO Hiring Assignment 2024 by Roel Spruit.")
-                .font(.caption)
-                .italic()
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.top, 5)
-
-            Button {
-                openURL(URL(string: "https://www.linkedin.com/in/roelspruit/")!)
-            } label: {
-                Text("Open my LinkedIn Profile")
-                    .font(.caption)
-            }
-        }
-
-        .accessibilityHidden(true)
-        .background(Color.cardBackground.shadow(.drop(color: .black.opacity(0.1), radius: 3)))
-    }
 }
 
 #Preview("Content") {
     NavigationStack {
-        PlacesListView(
+        HomeView(
             viewModel: .init(
                 locationService: LocationServiceMock()
             )
@@ -129,7 +94,7 @@ struct PlacesListView: View {
 
 #Preview("Empty") {
     NavigationStack {
-        PlacesListView(
+        HomeView(
             viewModel: .init(
                 locationService: LocationServiceMock(getLocationsStub: {
                     []
@@ -141,7 +106,7 @@ struct PlacesListView: View {
 
 #Preview("Error") {
     NavigationStack {
-        PlacesListView(
+        HomeView(
             viewModel: .init(
                 locationService: LocationServiceMock(getLocationsStub: {
                     throw LocationService.ServiceError.incorrectURLConfiguration
@@ -152,14 +117,14 @@ struct PlacesListView: View {
 }
 
 // Slight exception in showing this specific preview because we want to modify the state of the sheet in the viewmodel
-struct PlacesListView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = PlacesListViewModel(
+        let viewModel = HomeViewModel(
             locationService: LocationServiceMock()
         )
         viewModel.showAddCustomPlaceSheet = true
         return NavigationStack {
-            PlacesListView(
+            HomeView(
                 viewModel: viewModel
             )
         }

@@ -1,5 +1,5 @@
 //
-//  PlacesListViewModel.swift
+//  HomeViewModel.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 17/10/2024.
@@ -8,7 +8,7 @@ import CoreLocation
 import SwiftUI
 
 @Observable @MainActor
-final class PlacesListViewModel {
+final class HomeViewModel {
     var state: State = .loading
     var floatingErrorMessage: LocalizedStringKey?
     var errorSensoryFeedbackTrigger = false
@@ -16,10 +16,10 @@ final class PlacesListViewModel {
 
     // Convenience property to get data from state in unit tests
     var data: [PlaceViewModel] {
-        guard case let .data(locations) = state else {
+        guard case let .data(places) = state else {
             return []
         }
-        return locations
+        return places
     }
 
     var showAddCustomPlaceSheet = false
@@ -31,7 +31,7 @@ final class PlacesListViewModel {
 
     enum State {
         case loading
-        case data(locations: [PlaceViewModel])
+        case data(places: [PlaceViewModel])
         case empty
         case error(message: LocalizedStringKey)
     }
@@ -43,7 +43,7 @@ final class PlacesListViewModel {
 
 // MARK: - View events
 
-extension PlacesListViewModel {
+extension HomeViewModel {
     func onTask() async {
         await getLocations()
     }
@@ -78,7 +78,7 @@ extension PlacesListViewModel {
 
 // MARK: - Private functions and properties
 
-private extension PlacesListViewModel {
+private extension HomeViewModel {
     func getLocations() async {
         state = .loading
 
@@ -95,7 +95,7 @@ private extension PlacesListViewModel {
         if remoteLocations.isEmpty, customLocations.isEmpty {
             state = .empty
         } else {
-            state = .data(locations: remoteLocations.map(PlaceViewModel.init) + customLocations.map(PlaceViewModel.init))
+            state = .data(places: remoteLocations.map(PlaceViewModel.init) + customLocations.map(PlaceViewModel.init))
         }
     }
 
