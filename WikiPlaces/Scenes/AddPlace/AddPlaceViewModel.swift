@@ -1,5 +1,5 @@
 //
-//  AddPlaceFormViewModel.swift
+//  AddPlaceViewModel.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 07/11/2024.
@@ -8,7 +8,7 @@ import CoreLocation
 import SwiftUI
 
 @Observable @MainActor
-final class AddPlaceFormViewModel {
+final class AddPlaceViewModel {
     var locationName: String = ""
     var latitude: String = ""
     var longitude: String = ""
@@ -33,7 +33,7 @@ final class AddPlaceFormViewModel {
     }
 }
 
-private extension AddPlaceFormViewModel {
+private extension AddPlaceViewModel {
     var locationFromFields: Location? {
         guard let latitude = latitude.doubleValue,
               let longitude = longitude.doubleValue

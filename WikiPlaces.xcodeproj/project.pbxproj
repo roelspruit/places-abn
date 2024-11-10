@@ -32,6 +32,22 @@
 			);
 			target = F4B800A32CC00B390026C01B /* WikiPlaces */;
 		};
+		F447507A2CE0AC6000872727 /* Exceptions for "WikiPlacesTests" folder in "WikiPlaces" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Mocks/AppConfigurationRepositoryMock.swift,
+				Mocks/DataRequestServiceMock.swift,
+			);
+			target = F4B800A32CC00B390026C01B /* WikiPlaces */;
+		};
+		F447507B2CE0AC6000872727 /* Exceptions for "WikiPlacesTests" folder in "WikiPlacesTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Mocks/AppConfigurationRepositoryMock.swift,
+				Mocks/DataRequestServiceMock.swift,
+			);
+			target = F4B800B32CC00B3A0026C01B /* WikiPlacesTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -45,6 +61,10 @@
 		};
 		F4B800B72CC00B3A0026C01B /* WikiPlacesTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F447507A2CE0AC6000872727 /* Exceptions for "WikiPlacesTests" folder in "WikiPlaces" target */,
+				F447507B2CE0AC6000872727 /* Exceptions for "WikiPlacesTests" folder in "WikiPlacesTests" target */,
+			);
 			path = WikiPlacesTests;
 			sourceTree = "<group>";
 		};

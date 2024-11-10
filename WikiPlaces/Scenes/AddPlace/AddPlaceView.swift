@@ -1,5 +1,5 @@
 //
-//  AddPlaceForm.swift
+//  AddPlaceView.swift
 //  WikiPlaces
 //
 //  Created by Roel Spruit on 05/11/2024.
@@ -8,8 +8,8 @@
 import Combine
 import SwiftUI
 
-struct AddPlaceForm: View {
-    @State var viewModel: AddPlaceFormViewModel
+struct AddPlaceView: View {
+    @State var viewModel: AddPlaceViewModel
 
     @Environment(\.dismiss) private var dismiss
 
@@ -64,6 +64,6 @@ struct AddPlaceForm: View {
 
 #Preview {
     NavigationStack {
-        AddPlaceForm(viewModel: AddPlaceFormViewModel(onSaveLocation: { _ in }))
+        AddPlaceView(viewModel: AddPlaceViewModel(onSaveLocation: { _ in }))
     }
 }

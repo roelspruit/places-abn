@@ -43,7 +43,7 @@ struct HomeView: View {
             isPresented: $viewModel.showAddCustomPlaceSheet,
             content: {
                 NavigationStack {
-                    AddPlaceForm(viewModel: AddPlaceFormViewModel(
+                    AddPlaceView(viewModel: AddPlaceViewModel(
                         onSaveLocation: viewModel.onSaveCustomPlaceTap
                     ))
                 }
